@@ -81,6 +81,62 @@ body {
   color: var(--muted);
 }
 
+.level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 4px;
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  background: #111827;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.level-row.completed {
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+.level-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.level-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.level-sub {
+  font-size: 13px;
+}
+
+.level-row .btn {
+  margin-top: 0;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.level-intro {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  background: #111827;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 0 0 16px;
+}
+
 .scenario-title {
   margin: 4px 0 12px;
   font-size: 22px;

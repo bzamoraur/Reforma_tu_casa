@@ -4,9 +4,462 @@
     "order": 2,
     "title": "Licencias, comunidad y planificación",
     "subtitle": "Cumplimiento, vecinos y mapa de riesgos (Madrid)",
-    "intro": "Antes de tocar un solo tabique: qué hay que verificar sobre licencias o declaraciones responsables, normas de la comunidad de propietarios, horarios y ruido, gestión de residuos y realismo del calendario. (Nivel en preparación; contenido pendiente de validación experta.)",
-    "available": false
+    "intro": "Antes de tocar un solo tabique: comprueba si tu obra necesita algún trámite, respeta las normas de la comunidad y los vecinos, prevé los escombros y planifica un calendario realista. Aún no sabes qué exige tu caso concreto: vas a aprender a averiguarlo, no a darlo por hecho.",
+    "available": true
   },
-  "items": [],
-  "cards": []
+  "items": [
+    {
+      "id": "l2-permits-awareness",
+      "levelId": "level-2",
+      "title": "«Esto no necesita papeleo»",
+      "category": "licence",
+      "riskLevel": "medium",
+      "learningObjective": "Comprobar, antes de empezar, si la obra requiere algún trámite (licencia o declaración responsable) en lugar de darlo por hecho.",
+      "scenarioText": "El industrial zanja el tema: «Esto es una reforma normal, no hace falta papeleo, empezamos el lunes». Tú no tienes ni idea de si tu caso necesita algún trámite municipal.",
+      "playerChoices": [
+        {
+          "id": "assume-none",
+          "label": "Darle la razón: si él lo dice, será que no hace falta nada",
+          "consequence": "Te fías de una afirmación que nadie ha comprobado. Si tu caso sí requería un trámite, el problema (y la responsabilidad) acaban siendo tuyos.",
+          "scoreDelta": { "knowledge": -2, "trust": -1, "safety": -1 },
+          "redFlag": "Dar por hecho que no hace falta ningún trámite sin comprobarlo"
+        },
+        {
+          "id": "verify",
+          "label": "Comprobar con la administración competente o un técnico qué trámite corresponde a tu caso",
+          "consequence": "Preguntas en la fuente correcta antes de empezar. Sabes qué trámite aplica (si lo hay) y partes sobre seguro, no sobre suposiciones.",
+          "scoreDelta": { "knowledge": 2, "safety": 1, "trust": 1, "budget": 1 },
+          "lesson": "Qué trámite necesita una obra depende del caso: se comprueba, no se supone.",
+          "betterQuestion": "¿Dónde compruebo, de forma oficial, qué trámite necesita exactamente mi reforma?",
+          "unlocks": ["card-l2-check-permits"],
+          "recommended": true
+        },
+        {
+          "id": "ask-friend",
+          "label": "Preguntar a un amigo que hizo una reforma parecida",
+          "consequence": "Una referencia informal puede estar desactualizada o no aplicar a tu caso. Orienta, pero no sustituye a comprobarlo en la fuente oficial.",
+          "scoreDelta": { "knowledge": -1 }
+        },
+        {
+          "id": "start-anyway",
+          "label": "Empezar la obra y resolver el papeleo más tarde si surge algún problema",
+          "consequence": "Empezar antes de aclarar los trámites te expone a problemas que podrías haber evitado, según lo que acabe exigiendo tu caso.",
+          "scoreDelta": { "trust": -2, "safety": -1, "budget": -1 },
+          "redFlag": "Empezar la obra antes de aclarar qué trámite corresponde"
+        }
+      ],
+      "redFlags": [
+        "«No hace falta papeleo» afirmado sin comprobarlo",
+        "Empezar la obra antes de aclarar qué trámite corresponde"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Comprobar el trámite aplicable en la fuente oficial",
+          "whenUseful": "Antes de empezar cualquier obra cuyo régimen de tramitación no tengas claro.",
+          "constraints": [
+            "Se consulta a la administración competente o a un técnico, no a fuentes informales",
+            "Lo que aplique a tu caso queda por escrito antes de empezar"
+          ],
+          "risks": ["La información informal o genérica puede no aplicar a tu situación concreta"],
+          "rejectWhen": ["Si alguien te anima a empezar sin comprobar qué trámite corresponde"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Se ha comprobado en la fuente oficial qué trámite (si lo hay) corresponde a la obra",
+        "La obra no empieza hasta que el trámite aplicable está claro"
+      ],
+      "sourceIds": ["src-madrid-licensing-overview"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l2-common-elements",
+      "levelId": "level-2",
+      "title": "¿Eso es tuyo o de la comunidad?",
+      "category": "community",
+      "riskLevel": "low",
+      "learningObjective": "Reconocer que actuar sobre fachada, bajantes u otros elementos comunes puede requerir avisar o pedir permiso a la comunidad de propietarios.",
+      "scenarioText": "Quieres abrir un hueco en la fachada para el aire acondicionado y cambiar la bajante del baño. El industrial se encoge de hombros: «eso es cosa tuya, es tu piso».",
+      "playerChoices": [
+        {
+          "id": "just-do-it",
+          "label": "Hacerlo sin más: es tu piso",
+          "consequence": "La fachada y las bajantes suelen ser elementos comunes. Actuar sobre ellos por tu cuenta puede acabar en quejas o en tener que revertir lo hecho.",
+          "scoreDelta": { "trust": -2, "quality": -1 },
+          "redFlag": "Actuar sobre fachada o elementos comunes sin contar con la comunidad"
+        },
+        {
+          "id": "ask-community",
+          "label": "Revisar los estatutos y pedir por escrito permiso a la comunidad antes de tocar elementos comunes",
+          "consequence": "Distingues lo privativo de lo común, consultas los estatutos y llevas el permiso por escrito. Evitas conflictos y trabajas con respaldo.",
+          "scoreDelta": { "knowledge": 2, "trust": 2, "quality": 1 },
+          "lesson": "Lo que afecta a elementos comunes no se decide en solitario.",
+          "betterQuestion": "¿Qué de lo que quiero hacer afecta a elementos comunes y qué permiso necesito de la comunidad?",
+          "unlocks": ["card-l2-common-elements"],
+          "recommended": true
+        },
+        {
+          "id": "verbal-president",
+          "label": "Comentarlo de palabra con el presidente y tirar para adelante",
+          "consequence": "Un visto bueno verbal no es un acuerdo. Si más adelante hay discusión, no tienes nada que demuestre el permiso.",
+          "scoreDelta": { "trust": -1 }
+        },
+        {
+          "id": "assume-private",
+          "label": "Asumir que todo lo que está en tu vivienda es privativo",
+          "consequence": "Asumir sin comprobar es justo el error: hay elementos que parecen tuyos pero pueden ser de toda la comunidad.",
+          "scoreDelta": { "knowledge": -1, "trust": -1 },
+          "redFlag": "Dar por privativo lo que puede ser un elemento común"
+        }
+      ],
+      "redFlags": [
+        "Actuar sobre fachada o elementos comunes sin contar con la comunidad",
+        "Dar por privativo lo que puede ser un elemento común"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Consultar estatutos y pedir permiso por escrito",
+          "whenUseful": "Cuando la obra puede afectar a fachada, bajantes, patios u otros elementos comunes.",
+          "constraints": [
+            "Se revisan los estatutos y los acuerdos de la comunidad",
+            "El permiso se solicita y se obtiene por escrito"
+          ],
+          "risks": ["Un permiso verbal no acreditable no protege ante un conflicto posterior"],
+          "rejectWhen": [
+            "Si te empujan a actuar sobre elementos comunes sin contar con la comunidad"
+          ],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Se han revisado los estatutos de la comunidad",
+        "Se ha solicitado por escrito el permiso para actuar sobre elementos comunes"
+      ],
+      "sourceIds": ["src-madrid-licensing-overview", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l2-noise-hours",
+      "levelId": "level-2",
+      "title": "Ruido, horarios y vecinos",
+      "category": "community",
+      "riskLevel": "low",
+      "learningObjective": "Ajustar los horarios de obra y el ruido a las normas de la comunidad y municipales, y avisar a los vecinos.",
+      "scenarioText": "El equipo quiere empezar a las 7:00 y trabajar también algún domingo «para acabar antes». Los vecinos ya han preguntado cuánto va a durar esto.",
+      "playerChoices": [
+        {
+          "id": "any-time",
+          "label": "Que trabajen a cualquier hora con tal de acabar antes",
+          "consequence": "El ruido fuera de horario genera conflictos con los vecinos y posibles sanciones. Acabar un día antes no compensa una guerra en el portal.",
+          "scoreDelta": { "trust": -2, "safety": -1 },
+          "redFlag": "Ruido de obra fuera de los horarios permitidos"
+        },
+        {
+          "id": "respect-hours",
+          "label": "Acordar horarios compatibles con las normas de la comunidad y municipales, y avisar a los vecinos",
+          "consequence": "Fijas horarios razonables, evitas los días de descanso y avisas a los vecinos del calendario. La obra avanza sin abrir frentes innecesarios.",
+          "scoreDelta": { "trust": 2, "knowledge": 1, "safety": 1 },
+          "lesson": "Respetar los horarios y avisar a los vecinos previene conflictos y, según lo que marquen las normas, posibles sanciones.",
+          "betterQuestion": "¿Qué horarios de obra permiten las normas de mi comunidad y del municipio?",
+          "unlocks": ["card-l2-good-neighbour"],
+          "recommended": true
+        },
+        {
+          "id": "work-sundays",
+          "label": "Trabajar también los domingos sin avisar a nadie",
+          "consequence": "Trabajar en días de descanso y sin aviso es la receta para denuncias y para que la comunidad te complique el resto de la obra.",
+          "scoreDelta": { "trust": -2 },
+          "redFlag": "Trabajar en días de descanso sin avisar a la comunidad"
+        },
+        {
+          "id": "ignore-neighbors",
+          "label": "Ignorar las preguntas de los vecinos: no es asunto suyo",
+          "consequence": "Sí es asunto suyo: les afecta el ruido y las molestias. Ignorarlos solo te asegura tenerlos en contra.",
+          "scoreDelta": { "trust": -1 }
+        }
+      ],
+      "redFlags": [
+        "Ruido de obra fuera de los horarios permitidos",
+        "No avisar a los vecinos del calendario y las molestias"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Acordar horarios y avisar a los vecinos",
+          "whenUseful": "Al planificar una obra con ruido en un edificio habitado.",
+          "constraints": [
+            "Los horarios respetan las normas de la comunidad y municipales",
+            "Se avisa a los vecinos del calendario y las molestias previstas"
+          ],
+          "risks": ["Un aviso tardío o incompleto no evita el malestar ni las quejas"],
+          "rejectWhen": ["Si el equipo insiste en trabajar fuera de horario para acabar antes"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Los horarios de obra respetan las normas de la comunidad y municipales",
+        "Se ha avisado a los vecinos del calendario y las molestias previstas"
+      ],
+      "sourceIds": ["src-madrid-licensing-overview"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l2-waste-management",
+      "levelId": "level-2",
+      "title": "¿Y los escombros?",
+      "category": "contracting",
+      "riskLevel": "low",
+      "learningObjective": "Asegurar que la retirada y gestión de escombros está prevista, asignada y por escrito.",
+      "scenarioText": "Nadie ha hablado de qué pasa con los escombros. El industrial supone que «ya se verá» y, mientras, en el portal empiezan a aparecer sacos.",
+      "playerChoices": [
+        {
+          "id": "pile-up",
+          "label": "Dejar que se acumulen y ya se verá sobre la marcha",
+          "consequence": "Sin un plan, los escombros se amontonan, estorban y acaban costando más de lo previsto. La improvisación se paga.",
+          "scoreDelta": { "budget": -1, "quality": -1, "trust": -1 },
+          "redFlag": "Gestión de escombros sin prever ni presupuestar"
+        },
+        {
+          "id": "plan-waste",
+          "label": "Acordar por escrito quién retira los escombros, cómo y a dónde, y dejarlo en el presupuesto",
+          "consequence": "Queda claro quién se encarga de los residuos, cómo se retiran y dónde se gestionan, y está presupuestado. Sin sorpresas ni montones en el portal.",
+          "scoreDelta": { "budget": 2, "knowledge": 1, "quality": 1, "trust": 1 },
+          "lesson": "La gestión de escombros se acuerda y se presupuesta antes, no se improvisa.",
+          "betterQuestion": "¿Quién retira los escombros, a dónde van y está incluido en el presupuesto?",
+          "unlocks": ["card-l2-waste-plan"],
+          "recommended": true
+        },
+        {
+          "id": "common-areas",
+          "label": "Amontonarlos en zonas comunes mientras dura la obra",
+          "consequence": "Ocupar zonas comunes con escombros molesta a los vecinos y puede acarrearte responsabilidades con la comunidad.",
+          "scoreDelta": { "trust": -2, "quality": -1 },
+          "redFlag": "Acumular residuos de obra en zonas comunes"
+        },
+        {
+          "id": "assume-included",
+          "label": "Suponer que la retirada va incluida sin confirmarlo",
+          "consequence": "Si no está escrito, puede no estar incluido. Lo descubrirás cuando llegue la factura del «extra».",
+          "scoreDelta": { "budget": -1 }
+        }
+      ],
+      "redFlags": [
+        "Gestión de escombros sin prever ni presupuestar",
+        "Acumular residuos de obra en zonas comunes"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Plan de retirada de escombros por escrito",
+          "whenUseful": "En cualquier obra que genere un volumen apreciable de residuos.",
+          "constraints": [
+            "Consta quién retira los escombros y a dónde se llevan para su gestión",
+            "La retirada figura en el presupuesto"
+          ],
+          "risks": ["Una previsión vaga deja la puerta abierta a cobros adicionales"],
+          "rejectWhen": [
+            "Si proponen acumular residuos en zonas comunes o «ya verlo» sobre la marcha"
+          ],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "El presupuesto recoge la retirada y gestión de escombros",
+        "Está claro quién se encarga de los residuos y a dónde van"
+      ],
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l2-planning-calendar",
+      "levelId": "level-2",
+      "title": "«En tres semanas, sin problemas»",
+      "category": "scope",
+      "riskLevel": "low",
+      "learningObjective": "Planificar un calendario realista por fases, con holguras, plazos de materiales y un mapa de riesgos.",
+      "scenarioText": "El industrial promete tenerlo todo «en tres semanas, sin problemas». No menciona los plazos de los materiales, los posibles imprevistos ni en qué orden entran los distintos gremios.",
+      "playerChoices": [
+        {
+          "id": "trust-fast",
+          "label": "Creerte el plazo optimista y no preguntar más",
+          "consequence": "Un plazo redondo y sin detalle suele saltar por los aires al primer imprevisto. Te quedas sin margen y sin plan B.",
+          "scoreDelta": { "time": -2, "budget": -1 },
+          "redFlag": "Plazos prometidos sin fases, holguras ni plan de materiales"
+        },
+        {
+          "id": "realistic-plan",
+          "label": "Pedir un calendario por fases, con holguras, plazos de materiales y orden de los gremios, y anotar los riesgos",
+          "consequence": "Tienes un calendario por fases con holguras y un mapa de los principales riesgos. Cuando llegue un imprevisto (que llegará), sabrás dónde estás.",
+          "scoreDelta": { "time": 2, "knowledge": 2, "budget": 1, "quality": 1, "trust": 1 },
+          "lesson": "Un buen calendario tiene fases, holguras y una lista de los riesgos previsibles.",
+          "betterQuestion": "¿Me das el calendario por fases, con holguras y plazos de materiales, y qué riesgos prevés?",
+          "unlocks": ["card-l2-realistic-calendar"],
+          "recommended": true
+        },
+        {
+          "id": "no-buffer",
+          "label": "Aceptar el plazo, pero sin fases ni holguras",
+          "consequence": "Aceptar una fecha sin fases ni colchón es fijarse una promesa que casi nadie cumple. Mejor que nada, pero te deja expuesto.",
+          "scoreDelta": { "time": -1 }
+        },
+        {
+          "id": "penalty-only",
+          "label": "Fijar solo una penalización por retraso y olvidarte de planificar",
+          "consequence": "Una penalización no construye nada: sin un plan realista detrás, solo te garantiza una discusión cuando se retrase.",
+          "scoreDelta": { "time": -1, "knowledge": -1 },
+          "redFlag": "Confiar en una penalización en lugar de en una planificación realista"
+        }
+      ],
+      "redFlags": [
+        "Plazos prometidos sin fases, holguras ni plan de materiales",
+        "No prever imprevistos ni el orden de los gremios"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Calendario por fases con mapa de riesgos",
+          "whenUseful": "Antes de empezar, para fijar expectativas realistas de plazo.",
+          "constraints": [
+            "El calendario se organiza por fases, con holguras y plazos de materiales",
+            "Se anotan los principales riesgos e imprevistos previsibles"
+          ],
+          "risks": ["Un calendario sin holguras se incumple al primer contratiempo"],
+          "rejectWhen": ["Si solo te ofrecen una fecha redonda sin fases ni detalle"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Existe un calendario por fases con holguras",
+        "Se han identificado los principales riesgos e imprevistos del proyecto"
+      ],
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l2-when-technician",
+      "levelId": "level-2",
+      "title": "«Eso lo tumbo yo en una mañana»",
+      "category": "structure_awareness",
+      "riskLevel": "high",
+      "learningObjective": "Reconocer cuándo una reforma puede necesitar un técnico o un proyecto, y no improvisar en lo que excede a un industrial.",
+      "scenarioText": "Te planteas unir el salón con la cocina. El industrial dice que «eso lo tumbo yo en una mañana». Algo te dice que no todo lo que parece un simple tabique lo es.",
+      "playerChoices": [
+        {
+          "id": "trust-industrial",
+          "label": "Fiarte: si dice que es de una mañana, será fácil",
+          "consequence": "Puede que haya un elemento de carga de por medio; comprobarlo es justo lo que no debe saltarse. La seguridad del edificio no se decide a ojo.",
+          "scoreDelta": { "safety": -2, "quality": -1 },
+          "redFlag": "Asumir que ningún elemento es estructural sin que lo compruebe un técnico"
+        },
+        {
+          "id": "check-technician",
+          "label": "Pedir que un técnico competente compruebe si algún elemento es estructural antes de tocar nada",
+          "consequence": "Un técnico te dice qué es estructural y qué no, y si la reforma necesita un proyecto. Sabes por dónde puedes ir y por dónde no.",
+          "scoreDelta": { "safety": 3, "knowledge": 2, "quality": 1, "trust": 1 },
+          "lesson": "Hay cosas que exceden a un industrial: ante la duda estructural, un técnico.",
+          "betterQuestion": "¿Puede un técnico competente confirmar qué es estructural y si esto necesita un proyecto?",
+          "unlocks": ["card-l2-when-technician"],
+          "recommended": true
+        },
+        {
+          "id": "leave-for-later",
+          "label": "Empezar por lo seguro y dejar la duda estructural para más adelante",
+          "consequence": "Avanzar por lo sencillo está bien, pero la duda estructural hay que resolverla antes de tocar nada que pueda ser de carga, no a mitad de obra.",
+          "scoreDelta": { "safety": -1 }
+        },
+        {
+          "id": "diy-judge",
+          "label": "Decidir tú mismo, a ojo, qué se puede tocar",
+          "consequence": "Valorar a ojo si algo es estructural es jugártela. Esa valoración es de un técnico competente, no del entusiasmo del momento.",
+          "scoreDelta": { "safety": -2, "quality": -1 },
+          "redFlag": "Valorar a ojo si un elemento es estructural"
+        }
+      ],
+      "redFlags": [
+        "Asumir que ningún elemento es estructural sin que lo compruebe un técnico",
+        "Tratar cualquier tabique como si todos fueran iguales"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Comprobación técnica previa",
+          "whenUseful": "Cuando la reforma puede afectar a tabiques, fachada o instalaciones importantes.",
+          "constraints": [
+            "La comprobación la realiza un técnico competente",
+            "Queda por escrito qué es estructural y qué no, y si hace falta un proyecto"
+          ],
+          "risks": ["Una valoración a ojo puede equivocarse y comprometer la seguridad"],
+          "rejectWhen": [
+            "Si alguien propone actuar sobre posibles elementos estructurales sin comprobación técnica"
+          ],
+          "professionalRequired": true
+        }
+      ],
+      "acceptanceChecks": [
+        "Un técnico competente ha comprobado qué elementos son estructurales",
+        "No se actúa sobre posibles elementos estructurales sin comprobación previa"
+      ],
+      "safetyNotice": "Identificar o modificar elementos estructurales corresponde a un técnico competente. Este juego no explica cómo demoler ni modificar nada: solo enseña a reconocer cuándo hace falta un profesional.",
+      "sourceIds": ["src-general-contracting-practice", "src-madrid-licensing-overview"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-l2-check-permits",
+      "levelId": "level-2",
+      "title": "Comprueba el trámite antes de empezar",
+      "body": "Qué trámite necesita una obra (licencia, declaración responsable o nada) depende del caso y cambia con el tiempo y el municipio. Compruébalo en la fuente oficial o con un técnico antes de empezar; no te fíes de un «esto no necesita papeleo».",
+      "category": "licence",
+      "sourceIds": ["src-madrid-licensing-overview"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l2-common-elements",
+      "levelId": "level-2",
+      "title": "Lo común no se decide en solitario",
+      "body": "Fachada, bajantes, patios o estructura suelen ser elementos comunes. Antes de actuar sobre ellos, revisa los estatutos y pide permiso por escrito a la comunidad. Un visto bueno verbal no te protege si después hay conflicto.",
+      "category": "community",
+      "sourceIds": ["src-madrid-licensing-overview", "src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l2-good-neighbour",
+      "levelId": "level-2",
+      "title": "Buena obra, buen vecino",
+      "body": "Ajusta los horarios de obra y el ruido a las normas de tu comunidad y del municipio, evita los días de descanso y avisa a los vecinos del calendario. Acabar un día antes no compensa un conflicto en el portal ni los problemas que pueden venir por incumplir las normas.",
+      "category": "community",
+      "sourceIds": ["src-madrid-licensing-overview"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l2-waste-plan",
+      "levelId": "level-2",
+      "title": "Los escombros, previstos y por escrito",
+      "body": "Acuerda antes quién retira los escombros, cómo y a dónde se gestionan, y que figure en el presupuesto. Sin un plan, los residuos se amontonan, molestan a los vecinos y acaban como un «extra» en la factura.",
+      "category": "contracting",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l2-realistic-calendar",
+      "levelId": "level-2",
+      "title": "Un calendario que aguante la realidad",
+      "body": "Pide un calendario por fases, con holguras, plazos de materiales y orden de los gremios, y anota los riesgos previsibles. Una fecha redonda «sin problemas» casi nunca sobrevive al primer imprevisto.",
+      "category": "scope",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l2-when-technician",
+      "levelId": "level-2",
+      "title": "Ante la duda estructural, un técnico",
+      "body": "No todo lo que parece un tabique lo es. Si la reforma puede afectar a elementos estructurales, que un técnico competente compruebe qué es estructural y si hace falta un proyecto antes de tocar nada. Hay cosas que exceden a un industrial.",
+      "category": "structure_awareness",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    }
+  ]
 }

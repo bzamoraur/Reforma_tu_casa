@@ -3,7 +3,7 @@ import { expect, test, type ConsoleMessage } from '@playwright/test';
 // Benign console noise to ignore (none expected, but keep the e2e robust).
 const IGNORE = [/favicon/i, /Download the .* DevTools/i];
 
-test('completes Level 1 end-to-end, shows the scorecard, and persists progress', async ({
+test('completes Level 2 end-to-end, shows the scorecard, and persists progress', async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -16,8 +16,8 @@ test('completes Level 1 end-to-end, shows the scorecard, and persists progress',
 
   await page.goto('/');
 
-  // App loads with a level list; start Level 1.
-  const start = page.locator('[data-testid="start-level"][data-level-id="level-1"]');
+  // The menu offers Level 2 directly; start it.
+  const start = page.locator('[data-testid="start-level"][data-level-id="level-2"]');
   await expect(start).toBeVisible();
   await start.click();
 
@@ -54,7 +54,7 @@ test('completes Level 1 end-to-end, shows the scorecard, and persists progress',
   // Progress persists across a reload.
   await page.reload();
   await expect(
-    page.locator('[data-testid="progress-badge"][data-level-id="level-1"]'),
+    page.locator('[data-testid="progress-badge"][data-level-id="level-2"]'),
   ).toBeVisible();
 
   expect(errors, `Console errors: ${errors.join('\n')}`).toEqual([]);
