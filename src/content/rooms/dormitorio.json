@@ -1,0 +1,107 @@
+{
+  "house": { "id": "mi-piso", "name": "Mi piso" },
+  "rooms": [
+    {
+      "id": "dormitorio",
+      "name": "Dormitorio",
+      "order": 2,
+      "intro": "El dormitorio. Acogedor, pero las paredes están apagadas. Aquí sí puedes meter mano tú mismo... con cabeza.",
+      "art": { "before": "dormitorio-paint-before", "after": "dormitorio-paint-after" },
+      "hotspots": [
+        {
+          "id": "hs-dormitorio-walls",
+          "label": "Mira las paredes",
+          "discoverHint": "Las paredes están apagadas y piden una mano de pintura.",
+          "projectId": "dormitorio-paint",
+          "x": 0.42,
+          "y": 0.4
+        }
+      ],
+      "projectIds": ["dormitorio-paint"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "dormitorio-paint",
+      "roomId": "dormitorio",
+      "title": "Pintar el dormitorio",
+      "opportunity": "Las paredes del dormitorio están apagadas. Pintar es de las pocas cosas que puedes hacer tú mismo... si la pared está sana.",
+      "playerRole": "simple_safe_diy",
+      "learn": {
+        "title": "Pintar bien (y cuándo no es solo pintar)",
+        "body": "Pintar una habitación es una tarea segura que sí puedes hacer tú. Pero antes comprueba que la pared está sana: si hay humedad o grietas que preocupen, eso no se tapa con pintura, se investiga primero. Si está sana, limpia, tapa los agujeritos, protege muebles y suelo, ventila bien y pinta con calma.",
+        "sourceIds": ["src-general-contracting-practice"]
+      },
+      "decide": {
+        "id": "dormitorio-paint-decide",
+        "levelId": "dormitorio",
+        "title": "El dormitorio pide pintura",
+        "category": "paint",
+        "riskLevel": "low",
+        "learningObjective": "Reconocer que pintar es un DIY seguro cuando la pared está sana, y que humedad o grietas no se tapan con pintura: se investigan primero.",
+        "scenarioText": "El dormitorio pediría una mano de pintura para alegrarlo. Te apetece hacerlo tú mismo este fin de semana.",
+        "playerChoices": [
+          {
+            "id": "paint-over-damp",
+            "label": "Pintar directamente encima, aunque se vea alguna mancha de humedad",
+            "consequence": "Tapar una humedad con pintura no la cura: la mancha vuelve a salir al poco. Eso no es pintar, es esconder un problema.",
+            "scoreDelta": { "quality": -2, "knowledge": -1 },
+            "redFlag": "Pintar encima de humedad sin averiguar su origen"
+          },
+          {
+            "id": "prep-and-paint",
+            "label": "Comprobar que la pared está sana, prepararla y protegerla, ventilar y pintar tú con calma",
+            "consequence": "Compruebas que no hay humedad ni grietas que preocupen, preparas y proteges, ventilas y pintas tú mismo. Te queda un acabado del que estar orgulloso, y era seguro hacerlo.",
+            "scoreDelta": { "quality": 2, "knowledge": 2, "trust": 1 },
+            "lesson": "Pintar es seguro y se te da bien si la pared está sana y preparas bien.",
+            "betterQuestion": "¿Está la pared sana (sin humedad ni grietas que preocupen) y bien preparada antes de pintar?",
+            "recommended": true
+          },
+          {
+            "id": "cracks-ignore",
+            "label": "Dar por hecho que unas grietas se tapan con dar pintura por encima",
+            "consequence": "Las grietas que reaparecen pueden estar avisando de algo a revisar. La pintura las disimula un tiempo, no las arregla.",
+            "scoreDelta": { "quality": -1, "safety": -1 },
+            "redFlag": "Tapar grietas con pintura en vez de revisar a qué se deben"
+          },
+          {
+            "id": "rush-no-prep",
+            "label": "Pintar rápido, sin proteger ni preparar nada",
+            "consequence": "Sin preparar la pared ni proteger el suelo, acabas con salpicaduras y un acabado pobre. Las prisas se ven en la pared.",
+            "scoreDelta": { "quality": -1, "time": -1 }
+          }
+        ],
+        "redFlags": [
+          "Pintar encima de humedad sin averiguar su origen",
+          "Tapar grietas con pintura en vez de revisar a qué se deben"
+        ],
+        "legitimateWorkarounds": [
+          {
+            "title": "Comprobar la pared antes de pintar",
+            "whenUseful": "Antes de pintar cualquier habitación tú mismo.",
+            "constraints": [
+              "La pared está sana: sin humedad activa ni grietas que preocupen",
+              "Se prepara y protege la zona y hay ventilación"
+            ],
+            "risks": ["Pintar sobre humedad o grietas solo disimula el problema un tiempo"],
+            "rejectWhen": ["Si aparece humedad o grietas que preocupen: para y averigua la causa"],
+            "professionalRequired": false
+          }
+        ],
+        "acceptanceChecks": [
+          "La pared está sana (sin humedad activa ni grietas que preocupen) antes de pintar",
+          "Se ha preparado y protegido la zona, y hay ventilación",
+          "Si aparece humedad o grietas, se investiga la causa antes de pintar"
+        ],
+        "sourceIds": ["src-general-contracting-practice"],
+        "status": "draft",
+        "expertReview": { "required": true, "status": "not_requested" }
+      },
+      "transform": {
+        "caption": "Con la pared preparada y bien ventilado, das tú mismo una mano nueva: el dormitorio estrena color.",
+        "agent": "player_safe_diy"
+      },
+      "prerequisites": []
+    }
+  ]
+}

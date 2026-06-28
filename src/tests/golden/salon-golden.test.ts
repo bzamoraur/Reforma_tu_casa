@@ -7,10 +7,10 @@ import { getHouse, getProject, getRoom } from '../../game/systems/content';
 import { bestPossibleScore } from '../../domain/scoring';
 
 describe('Salón flooring module — golden', () => {
-  it('house has one room with one project', () => {
+  it('the house exposes its rooms (ordered) and projects', () => {
     const house = getHouse();
-    expect(house.rooms.map((r) => r.id)).toEqual(['salon']);
-    expect(house.projects.map((p) => p.id)).toEqual(['salon-flooring']);
+    expect(house.rooms.map((r) => r.id)).toEqual(['salon', 'dormitorio']);
+    expect(house.projects.map((p) => p.id).sort()).toEqual(['dormitorio-paint', 'salon-flooring']);
   });
 
   it('module shape (role, risk, transform attribution, flags, checks)', () => {

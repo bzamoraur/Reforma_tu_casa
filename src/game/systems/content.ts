@@ -17,6 +17,7 @@ import level3 from '../../content/levels/level-3.json';
 import level4 from '../../content/levels/level-4.json';
 import level5 from '../../content/levels/level-5.json';
 import salonHouse from '../../content/rooms/salon.json';
+import dormitorioHouse from '../../content/rooms/dormitorio.json';
 import sourceRegister from '../../content/sources/source-register.json';
 
 const rawLevels = [level1, level2, level3, level4, level5];
@@ -88,7 +89,7 @@ export function getSource(sourceId: string): SourceEntry | undefined {
 
 // --- Spatial game (ADR-0006): rooms & renovation modules -------------------
 
-const rawHousePacks = [salonHouse];
+const rawHousePacks = [salonHouse, dormitorioHouse];
 
 function parseHousePacks(): HousePack[] {
   return rawHousePacks.map((raw, i) => {

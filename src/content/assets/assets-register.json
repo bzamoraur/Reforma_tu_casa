@@ -22,6 +22,28 @@
       "usage": "Salón room — flooring module, after state (Phaser room texture)",
       "dateGenerated": "PENDING",
       "limitations": "Must be a pixel-aligned edit of salon-floor-before (only the floor changes)."
+    },
+    {
+      "id": "dormitorio-paint-before",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (self-served on website)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/salon-flooring-prompts.md (reuse style bible; bedroom + dull walls)",
+      "usage": "Dormitorio room — paint module, before state",
+      "dateGenerated": "PENDING",
+      "limitations": "Reuse the locked style bible for cross-room consistency; bedroom with tired/dull walls."
+    },
+    {
+      "id": "dormitorio-paint-after",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (in-context edit of dormitorio-paint-before)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/salon-flooring-prompts.md (edit: change ONLY the wall colour)",
+      "usage": "Dormitorio room — paint module, after state",
+      "dateGenerated": "PENDING",
+      "limitations": "Pixel-aligned edit of dormitorio-paint-before (only the wall colour/freshness changes)."
     }
   ],
   "approvedFreeSources": [
