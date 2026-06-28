@@ -26,7 +26,7 @@
         },
         {
           "id": "supervise-safely",
-          "label": "Exigir protecciones, EPIs y zona acotada antes de empezar, y supervisar desde fuera",
+          "label": "Exigir protecciones y zona acotada, y supervisar",
           "consequence": "Antes de tocar nada pides que protejan suelos y accesos, que el equipo use protección y que se acote la zona; supervisas desde fuera sin ejecutar trabajo de obra. La demolición arranca con orden y seguridad.",
           "scoreDelta": { "safety": 3, "quality": 1, "knowledge": 2, "trust": 1 },
           "lesson": "Tu papel en la demolición es supervisar y exigir seguridad, no coger la maza.",
@@ -94,7 +94,7 @@
         },
         {
           "id": "stop-and-check",
-          "label": "Parar y exigir que un técnico competente compruebe si es un elemento de carga antes de continuar",
+          "label": "Parar y exigir la comprobación de un técnico",
           "consequence": "Detienes la demolición en esa pared y pides que un técnico competente compruebe por escrito si es estructural y qué haría falta. Si no lo es, se sigue; si lo es, no se improvisa. La seguridad del edificio no se decide a ojo.",
           "scoreDelta": { "safety": 3, "knowledge": 2, "quality": 1, "trust": 1 },
           "lesson": "Ante cualquier duda de carga, se para y lo comprueba un técnico.",
@@ -162,7 +162,7 @@
         },
         {
           "id": "remeasure-real",
-          "label": "Medir y reconfirmar sobre la obra real, en varios puntos, y dejar las medidas por escrito antes de encargar",
+          "label": "Medir sobre la obra real y dejarlo por escrito",
           "consequence": "Tomáis las medidas sobre el espacio ya demolido, comprobáis en varios puntos (las paredes rara vez son perfectas) y las dejáis firmadas antes de pedir nada. Así reduces el riesgo de que lo que llegue no encaje.",
           "scoreDelta": { "budget": 2, "quality": 2, "knowledge": 2, "time": 1 },
           "lesson": "Mide sobre la obra real, en varios puntos y por escrito, antes de encargar.",
@@ -229,7 +229,7 @@
         },
         {
           "id": "stop-and-locate",
-          "label": "Parar y pedir que se localicen e identifiquen las conducciones, y que el profesional correspondiente las gestione",
+          "label": "Parar y pedir que se localicen las conducciones",
           "consequence": "Detienes el trabajo en esa zona y pides que se localicen e identifiquen las conducciones antes de seguir; cualquier actuación sobre ellas la hace el profesional correspondiente. Reduces el riesgo de un escape, de un cortocircuito o de una descarga.",
           "scoreDelta": { "safety": 3, "quality": 1, "knowledge": 2, "trust": 1 },
           "lesson": "Si aparecen tubos o cables, se para y se identifican antes de seguir.",
@@ -299,7 +299,7 @@
         },
         {
           "id": "stop-document-assess",
-          "label": "Parar, documentar el hallazgo, no tapar y pedir que se valore el origen con quien corresponda",
+          "label": "Parar, no tapar y pedir que se valore el origen",
           "consequence": "Detienes el trabajo en esa zona, fotografías la humedad y el material, no tapas nada y pides que se valore el origen y, ante materiales antiguos inciertos, que lo evalúe un profesional. Decides con información, no a ciegas.",
           "scoreDelta": { "safety": 3, "quality": 2, "knowledge": 2, "budget": 1 },
           "lesson": "Una sorpresa no se tapa: se documenta y se valora su origen.",
@@ -367,7 +367,7 @@
         },
         {
           "id": "document-inhueso",
-          "label": "Documentar antes de cerrar nada: fotos antes/después fechadas, recorrido de instalaciones, mediciones y hallazgos",
+          "label": "Documentar el «en hueso» antes de cerrar nada",
           "consequence": "Antes de cerrar paredes y suelos, fotografías el estado «en hueso», anotas el recorrido de las instalaciones a la vista, las medidas reales y los hallazgos, todo fechado. Tendrás un registro para decidir y para reclamar.",
           "scoreDelta": { "quality": 2, "knowledge": 2, "trust": 2, "budget": 1 },
           "lesson": "Lo que se cierra sin registrar es muy difícil de recuperar.",

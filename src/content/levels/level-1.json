@@ -26,7 +26,7 @@
         },
         {
           "id": "ask-itemized",
-          "label": "Pedir un presupuesto desglosado por partidas",
+          "label": "Pedir el presupuesto desglosado",
           "consequence": "El industrial resopla, pero acepta detallar partidas, mediciones y calidades. Ahora puedes comparar y reclamar.",
           "scoreDelta": { "knowledge": 2, "trust": 2, "quality": 1, "budget": 1 },
           "lesson": "Sin desglose no hay forma de comparar ni de reclamar.",
@@ -89,7 +89,7 @@
         },
         {
           "id": "milestones",
-          "label": "Proponer un calendario de pagos por hitos",
+          "label": "Proponer pagos ligados a hitos",
           "consequence": "Acordáis un anticipo razonable y pagos ligados a hitos verificables (fin de demolición, instalaciones probadas, etc.).",
           "scoreDelta": { "budget": 2, "trust": 2, "knowledge": 1 },
           "lesson": "Liga cada pago a algo que puedas verificar.",
@@ -154,7 +154,7 @@
         },
         {
           "id": "written-list",
-          "label": "Pedir por escrito qué incluye y qué excluye",
+          "label": "Pedir inclusiones y exclusiones por escrito",
           "consequence": "Obtienes dos listas claras: inclusiones y exclusiones. Ahora sabes exactamente qué estás comprando.",
           "scoreDelta": { "knowledge": 2, "trust": 1, "quality": 1, "budget": 1 },
           "lesson": "Lo que no está escrito, no está incluido.",
@@ -164,7 +164,7 @@
         },
         {
           "id": "assume-standard",
-          "label": "Asumir que incluye lo estándar",
+          "label": "Asumir que ya incluye todo lo estándar de siempre",
           "consequence": "Asumir es la palabra más cara de una reforma.",
           "scoreDelta": { "budget": -1, "knowledge": -1 }
         }
@@ -209,7 +209,7 @@
         },
         {
           "id": "detailed-mid",
-          "label": "El intermedio detallado: comparas partidas, pides referencias y pides que acrediten el seguro",
+          "label": "El intermedio detallado, comparando partidas",
           "consequence": "Comparas partida a partida, llamas a referencias y pides que te acrediten un seguro de responsabilidad civil. Decisión informada.",
           "scoreDelta": { "quality": 2, "trust": 2, "knowledge": 2, "budget": 1, "safety": 1 },
           "lesson": "El total importa menos que lo que hay detrás de cada partida.",
@@ -219,7 +219,7 @@
         },
         {
           "id": "most-expensive",
-          "label": "El más caro, que será el mejor",
+          "label": "El más caro, que por algo será el mejor, digo yo",
           "consequence": "Caro y genérico no es garantía de nada. Pagas de más sin saber por qué.",
           "scoreDelta": { "budget": -2, "trust": -1 }
         }
@@ -269,7 +269,7 @@
         },
         {
           "id": "written-change-orders",
-          "label": "Exigir un procedimiento de cambios por escrito y con precio antes de ejecutar",
+          "label": "Exigir aprobar los cambios por escrito y con precio",
           "consequence": "Acordáis que cualquier extra se aprueba por escrito y con precio cerrado antes de hacerlo. Así reduces al mínimo las sorpresas.",
           "scoreDelta": { "budget": 2, "trust": 2, "knowledge": 1, "quality": 1 },
           "lesson": "Pacta antes cómo se aprueban y cuánto cuestan los cambios.",
@@ -285,7 +285,7 @@
         },
         {
           "id": "whatsapp-only",
-          "label": "Pedir que al menos te lo avise por WhatsApp",
+          "label": "Pedir que al menos te avise de cada extra por WhatsApp",
           "consequence": "Tener rastro escrito es mejor que nada, pero sin precios cerrados sigues expuesto.",
           "scoreDelta": { "knowledge": 1, "budget": -1 }
         }
@@ -333,7 +333,7 @@
         },
         {
           "id": "renegotiate-then-sign",
-          "label": "Renegociar para incluir desglose, hitos, exclusiones y cambios; luego firmar",
+          "label": "Renegociar las condiciones y luego firmar",
           "consequence": "Llevas a la firma un contrato con alcance desglosado, pagos por hitos, exclusiones por escrito y procedimiento de cambios. Un industrial serio suele aceptarlo.",
           "scoreDelta": {
             "budget": 2,
