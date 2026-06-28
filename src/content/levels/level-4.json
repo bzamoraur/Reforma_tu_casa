@@ -1,0 +1,12 @@
+{
+  "level": {
+    "id": "level-4",
+    "order": 4,
+    "title": "Instalaciones críticas",
+    "subtitle": "Electricidad, fontanería, ventilación y certificaciones",
+    "intro": "Electricidad, fontanería, ventilación y agua caliente. Este nivel es deliberadamente estricto: nada de bricolaje peligroso. El objetivo es saber exigir pruebas antes de cerrar paredes, registros accesibles y certificados profesionales. (Nivel en preparación; contenido pendiente de validación experta.)",
+    "available": false
+  },
+  "items": [],
+  "cards": []
+}

@@ -1,0 +1,52 @@
+{
+  "sources": [
+    {
+      "id": "src-general-contracting-practice",
+      "title": "General contracting good-practice (placeholder)",
+      "type": "practice-note",
+      "jurisdiction": "Spain (general)",
+      "citation": "PLACEHOLDER — to be supplied and verified during expert/source review.",
+      "dateAccessed": "PENDING",
+      "summary": "Placeholder anchor for general, non-normative good-practice around quotes, itemization, payment staging and documentation. Holds no verified facts yet.",
+      "reliability": "placeholder",
+      "contentAreas": ["scope", "budget", "contracting"],
+      "limitations": "Not a legal source. Not verified. Must not be cited as authority until an expert or a real source replaces it."
+    },
+    {
+      "id": "src-madrid-licensing-overview",
+      "title": "Madrid licensing/declaration awareness (placeholder)",
+      "type": "regulatory-awareness",
+      "jurisdiction": "Madrid, Spain",
+      "citation": "PLACEHOLDER — official municipal/autonomous community sources to be added during expert review.",
+      "dateAccessed": "PENDING",
+      "summary": "Placeholder for awareness that some works require licences/declarations and that requirements vary. Contains no specific legal claims.",
+      "reliability": "placeholder",
+      "contentAreas": ["licence", "community"],
+      "limitations": "Awareness only. No specific procedure, threshold, fee or timeline is asserted. Requires expert and primary-source verification."
+    },
+    {
+      "id": "src-payment-staging-practice",
+      "title": "Payment staging / milestone practice (placeholder)",
+      "type": "practice-note",
+      "jurisdiction": "Spain (general)",
+      "citation": "PLACEHOLDER — to be supplied during expert/source review.",
+      "dateAccessed": "PENDING",
+      "summary": "Placeholder for the general idea of tying payments to verifiable progress rather than large upfront sums.",
+      "reliability": "placeholder",
+      "contentAreas": ["budget", "contracting"],
+      "limitations": "No specific percentage, legal right, or contract term is asserted. Not verified."
+    },
+    {
+      "id": "src-documentation-practice",
+      "title": "Documentation & written scope practice (placeholder)",
+      "type": "practice-note",
+      "jurisdiction": "Spain (general)",
+      "citation": "PLACEHOLDER — to be supplied during expert/source review.",
+      "dateAccessed": "PENDING",
+      "summary": "Placeholder for the practice of putting scope, inclusions, exclusions and change orders in writing.",
+      "reliability": "placeholder",
+      "contentAreas": ["scope", "contracting", "handover"],
+      "limitations": "General practice only. No legal effect is claimed. Not verified."
+    }
+  ]
+}

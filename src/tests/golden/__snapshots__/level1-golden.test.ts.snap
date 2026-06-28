@@ -1,0 +1,137 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Level 1 — golden > best possible score 1`] = `
+{
+  "budget": 9,
+  "knowledge": 10,
+  "quality": 7,
+  "safety": 2,
+  "time": 0,
+  "trust": 12,
+}
+`;
+
+exports[`Level 1 — golden > final score and summary for a recommended playthrough 1`] = `
+{
+  "overallRating": "excellent",
+  "ratings": {
+    "budget": "excellent",
+    "knowledge": "excellent",
+    "quality": "excellent",
+    "safety": "excellent",
+    "time": "good",
+    "trust": "excellent",
+  },
+  "score": {
+    "budget": 9,
+    "knowledge": 10,
+    "quality": 7,
+    "safety": 2,
+    "time": 0,
+    "trust": 12,
+  },
+}
+`;
+
+exports[`Level 1 — golden > recommended-choice score deltas per item 1`] = `
+[
+  {
+    "choice": "ask-itemized",
+    "item": "l1-vague-scope",
+    "scoreDelta": {
+      "budget": 1,
+      "knowledge": 2,
+      "quality": 1,
+      "trust": 2,
+    },
+  },
+  {
+    "choice": "milestones",
+    "item": "l1-upfront-payment",
+    "scoreDelta": {
+      "budget": 2,
+      "knowledge": 1,
+      "trust": 2,
+    },
+  },
+  {
+    "choice": "written-list",
+    "item": "l1-exclusions",
+    "scoreDelta": {
+      "budget": 1,
+      "knowledge": 2,
+      "quality": 1,
+      "trust": 1,
+    },
+  },
+  {
+    "choice": "detailed-mid",
+    "item": "l1-comparison",
+    "scoreDelta": {
+      "budget": 1,
+      "knowledge": 2,
+      "quality": 2,
+      "safety": 1,
+      "trust": 2,
+    },
+  },
+  {
+    "choice": "written-change-orders",
+    "item": "l1-change-orders",
+    "scoreDelta": {
+      "budget": 2,
+      "knowledge": 1,
+      "quality": 1,
+      "trust": 2,
+    },
+  },
+  {
+    "choice": "renegotiate-then-sign",
+    "item": "l1-sign-decision",
+    "scoreDelta": {
+      "budget": 2,
+      "knowledge": 2,
+      "quality": 2,
+      "safety": 1,
+      "trust": 3,
+    },
+  },
+]
+`;
+
+exports[`Level 1 — golden > required red flags 1`] = `
+[
+  "Un presupuesto de una sola línea para una reforma integral",
+  "Presión para firmar rápido "antes de que suba el precio"",
+  "Anticipos muy altos antes de empezar",
+  "Pago total por adelantado a cambio de descuento",
+  ""Todo incluido" sin lista de exclusiones",
+  "Negativa a poner por escrito qué queda fuera",
+  "Un presupuesto muy por debajo del resto",
+  "Presupuestos imposibles de comparar entre sí",
+  "No poder verificar referencias ni seguro",
+  ""Los extras los vamos viendo"",
+  "Cambios de obra sin precio acordado antes de ejecutarlos",
+  "Firmar bajo presión de tiempo",
+  "Renunciar a poner condiciones por miedo a perder al industrial",
+]
+`;
+
+exports[`Level 1 — golden > suggested audit checklist 1`] = `
+[
+  "El presupuesto está desglosado por partidas",
+  "Constan mediciones y calidades de materiales",
+  "Existe copia escrita del alcance",
+  "El calendario de pagos está ligado a hitos verificables",
+  "El anticipo inicial es razonable y consta por escrito",
+  "Existe una lista escrita de inclusiones",
+  "Existe una lista escrita de exclusiones",
+  "Los presupuestos se comparan partida a partida",
+  "Se piden referencias de trabajos anteriores",
+  "Se solicita acreditación del seguro de responsabilidad civil",
+  "Existe un proceso escrito para aprobar cambios",
+  "Cada cambio lleva un precio acordado antes de ejecutarse",
+  "El contrato recoge alcance, pagos por hitos, exclusiones y cambios",
+  "Existe copia firmada por ambas partes",
+]
+`;

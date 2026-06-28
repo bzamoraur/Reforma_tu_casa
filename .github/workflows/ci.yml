@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit + golden tests
+        run: npm run test
+
+      - name: Content lint
+        run: npm run content:lint
+
+      - name: Build
+        run: npm run build
+
+      # Security audit is advisory in CI (does not fail the build on transitive
+      # dev-only advisories). Currently clean; review reports manually.
+      - name: Dependency audit (advisory)
+        run: npm audit --audit-level=high || true
+
+# Playwright e2e is intentionally NOT part of the first CI (see docs/test-plan.md).
+# Enable later with cached browsers via `npx playwright install --with-deps`.

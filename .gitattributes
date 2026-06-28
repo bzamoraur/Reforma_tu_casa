@@ -1,0 +1,13 @@
+# Normalize line endings to LF so lint/format are stable across Windows/macOS/Linux
+* text=auto eol=lf
+
+# Treat binary assets as binary (no EOL conversion)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+*.mp4 binary

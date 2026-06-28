@@ -1,0 +1,434 @@
+{
+  "level": {
+    "id": "level-1",
+    "order": 1,
+    "title": "Antes de firmar el presupuesto",
+    "subtitle": "Alcance, comparación y contrato",
+    "intro": "Has comprado un piso en Madrid que necesita una reforma. Llega el primer industrial con su presupuesto y muchas prisas por firmar. Antes de comprometerte a nada, aprende a leer entre líneas.",
+    "available": true
+  },
+  "items": [
+    {
+      "id": "l1-vague-scope",
+      "levelId": "level-1",
+      "title": "El presupuesto de una sola línea",
+      "category": "scope",
+      "riskLevel": "low",
+      "learningObjective": "Reconocer que un presupuesto cerrado sin desglose impide comparar y reclamar.",
+      "scenarioText": "El industrial te entrega un papel: \"Reforma integral, todo incluido\" y un precio cerrado. Una sola línea. Sonríe y te dice que es su mejor precio, pero solo si firmas hoy.",
+      "playerChoices": [
+        {
+          "id": "accept",
+          "label": "Aceptar el precio cerrado tal cual",
+          "consequence": "Firmas sin saber qué incluye. Cualquier cosa \"no prevista\" puede convertirse en un extra que acabes pagando tú.",
+          "scoreDelta": { "budget": -2, "trust": -2, "quality": -1 },
+          "redFlag": "Presupuesto de una línea para una reforma integral"
+        },
+        {
+          "id": "ask-itemized",
+          "label": "Pedir un presupuesto desglosado por partidas",
+          "consequence": "El industrial resopla, pero acepta detallar partidas, mediciones y calidades. Ahora puedes comparar y reclamar.",
+          "scoreDelta": { "knowledge": 2, "trust": 2, "quality": 1, "budget": 1 },
+          "lesson": "Sin desglose no hay forma de comparar ni de reclamar.",
+          "betterQuestion": "¿Puede desglosar el presupuesto por partidas, con mediciones y calidades?",
+          "unlocks": ["card-l1-itemized-scope"],
+          "recommended": true
+        },
+        {
+          "id": "ask-discount",
+          "label": "Pedir solo una pequeña rebaja",
+          "consequence": "Consigues un descuento simbólico, pero sigues sin saber qué estás comprando: el ahorro no compensa la información perdida.",
+          "scoreDelta": { "budget": 1, "knowledge": -1, "trust": -1 }
+        },
+        {
+          "id": "sign-fast",
+          "label": "Firmar rápido para fijar el precio",
+          "consequence": "La prisa es suya, no tuya. Te has atado a un alcance que nadie ha definido.",
+          "scoreDelta": { "budget": -2, "trust": -2, "safety": -1 },
+          "redFlag": "Presión para firmar hoy \"antes de que suba el precio\""
+        }
+      ],
+      "redFlags": [
+        "Un presupuesto de una sola línea para una reforma integral",
+        "Presión para firmar rápido \"antes de que suba el precio\""
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Pedir desglose por partidas",
+          "whenUseful": "Cuando el presupuesto llega como precio cerrado sin detalle.",
+          "constraints": ["Debe incluir mediciones y calidades", "Debe entregarse por escrito"],
+          "risks": ["Si no comparas, pueden inflar partidas concretas"],
+          "rejectWhen": ["Si se niegan a desglosar absolutamente nada"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "El presupuesto está desglosado por partidas",
+        "Constan mediciones y calidades de materiales",
+        "Existe copia escrita del alcance"
+      ],
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l1-upfront-payment",
+      "levelId": "level-1",
+      "title": "El anticipo del 70%",
+      "category": "budget",
+      "riskLevel": "low",
+      "learningObjective": "Entender por qué los pagos deben ligarse a hitos verificables y no a grandes anticipos.",
+      "scenarioText": "\"Para reservar fechas y comprar material necesito el 70% por adelantado\", dice. Aún no ha empezado nada.",
+      "playerChoices": [
+        {
+          "id": "pay-70",
+          "label": "Pagar el 70% para asegurar las fechas",
+          "consequence": "Pierdes tu mayor herramienta de control. Si la obra se complica o se abandona, recuperar el dinero es muy difícil.",
+          "scoreDelta": { "budget": -3, "trust": -2, "safety": -1 },
+          "redFlag": "Anticipo muy alto antes de empezar"
+        },
+        {
+          "id": "milestones",
+          "label": "Proponer un calendario de pagos por hitos",
+          "consequence": "Acordáis un anticipo razonable y pagos ligados a hitos verificables (fin de demolición, instalaciones probadas, etc.).",
+          "scoreDelta": { "budget": 2, "trust": 2, "knowledge": 1 },
+          "lesson": "Liga cada pago a algo que puedas verificar.",
+          "betterQuestion": "¿Podemos vincular cada pago a un hito comprobable de la obra?",
+          "unlocks": ["card-l1-payment-milestones"],
+          "recommended": true
+        },
+        {
+          "id": "pay-100",
+          "label": "Pagar el 100% a cambio de un descuento",
+          "consequence": "El descuento no compensa ni de lejos perder todo el control sobre la obra.",
+          "scoreDelta": { "budget": -3, "trust": -3 },
+          "redFlag": "Pago total por adelantado a cambio de descuento"
+        },
+        {
+          "id": "refuse-all",
+          "label": "Negarte a pagar nada hasta que termine",
+          "consequence": "Poco realista: un industrial serio suele necesitar un anticipo razonable para materiales.",
+          "scoreDelta": { "trust": -1, "time": -1 }
+        }
+      ],
+      "redFlags": [
+        "Anticipos muy altos antes de empezar",
+        "Pago total por adelantado a cambio de descuento"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Pagos por hitos",
+          "whenUseful": "Siempre que se acuerde el calendario de pagos.",
+          "constraints": [
+            "Cada hito debe ser verificable (p. ej., fin de demolición)",
+            "Debe constar por escrito en el contrato"
+          ],
+          "risks": ["Definir mal un hito genera disputas sobre si se ha cumplido"],
+          "rejectWhen": ["Si exigen el grueso del pago antes de trabajar"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "El calendario de pagos está ligado a hitos verificables",
+        "El anticipo inicial es razonable y consta por escrito"
+      ],
+      "sourceIds": ["src-payment-staging-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l1-exclusions",
+      "levelId": "level-1",
+      "title": "\"Todo incluido\" (¿incluido qué?)",
+      "category": "contracting",
+      "riskLevel": "low",
+      "learningObjective": "Saber exigir una lista escrita de inclusiones y exclusiones.",
+      "scenarioText": "Insistes en qué cubre el \"todo incluido\". El industrial te dice que \"lo normal, hombre, lo de siempre\". No quiere concretar por escrito.",
+      "playerChoices": [
+        {
+          "id": "trust-it",
+          "label": "Fiarte de \"lo normal\"",
+          "consequence": "\"Lo normal\" para él y para ti no es lo mismo. Los huecos los pagarás como extras.",
+          "scoreDelta": { "budget": -2, "trust": -1, "quality": -1 },
+          "redFlag": "Negativa a poner por escrito qué queda fuera"
+        },
+        {
+          "id": "written-list",
+          "label": "Pedir por escrito qué incluye y qué excluye",
+          "consequence": "Obtienes dos listas claras: inclusiones y exclusiones. Ahora sabes exactamente qué estás comprando.",
+          "scoreDelta": { "knowledge": 2, "trust": 1, "quality": 1, "budget": 1 },
+          "lesson": "Lo que no está escrito, no está incluido.",
+          "betterQuestion": "¿Puede entregarme la lista de inclusiones y, sobre todo, de exclusiones?",
+          "unlocks": ["card-l1-written-exclusions"],
+          "recommended": true
+        },
+        {
+          "id": "assume-standard",
+          "label": "Asumir que incluye lo estándar",
+          "consequence": "Asumir es la palabra más cara de una reforma.",
+          "scoreDelta": { "budget": -1, "knowledge": -1 }
+        }
+      ],
+      "redFlags": [
+        "\"Todo incluido\" sin lista de exclusiones",
+        "Negativa a poner por escrito qué queda fuera"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Lista de inclusiones y exclusiones",
+          "whenUseful": "Ante cualquier oferta de \"todo incluido\".",
+          "constraints": ["Por escrito y firmada por ambas partes"],
+          "risks": ["Una lista incompleta deja huecos que se cobran aparte"],
+          "rejectWhen": ["Si evitan concretar las exclusiones"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Existe una lista escrita de inclusiones",
+        "Existe una lista escrita de exclusiones"
+      ],
+      "sourceIds": ["src-documentation-practice", "src-general-contracting-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l1-comparison",
+      "levelId": "level-1",
+      "title": "Tres presupuestos, tres mundos",
+      "category": "budget",
+      "riskLevel": "low",
+      "learningObjective": "Comparar presupuestos partida a partida en lugar de mirar solo el total.",
+      "scenarioText": "Tienes tres presupuestos: uno muy por debajo de los demás, uno intermedio bien detallado y con referencias, y uno caro pero genérico. ¿Con cuál te quedas?",
+      "playerChoices": [
+        {
+          "id": "cheapest",
+          "label": "El más barato, obviamente",
+          "consequence": "El más barato a menudo esconde partidas omitidas o calidades bajas, y entonces lo barato puede salir caro a mitad de obra.",
+          "scoreDelta": { "budget": -2, "quality": -2, "safety": -1, "trust": -1 },
+          "redFlag": "Un presupuesto muy por debajo del resto"
+        },
+        {
+          "id": "detailed-mid",
+          "label": "El intermedio detallado: comparas partidas, pides referencias y pides que acrediten el seguro",
+          "consequence": "Comparas partida a partida, llamas a referencias y pides que te acrediten un seguro de responsabilidad civil. Decisión informada.",
+          "scoreDelta": { "quality": 2, "trust": 2, "knowledge": 2, "budget": 1, "safety": 1 },
+          "lesson": "El total importa menos que lo que hay detrás de cada partida.",
+          "betterQuestion": "¿Estos tres presupuestos cubren exactamente las mismas partidas y calidades?",
+          "unlocks": ["card-l1-compare-like-for-like"],
+          "recommended": true
+        },
+        {
+          "id": "most-expensive",
+          "label": "El más caro, que será el mejor",
+          "consequence": "Caro y genérico no es garantía de nada. Pagas de más sin saber por qué.",
+          "scoreDelta": { "budget": -2, "trust": -1 }
+        }
+      ],
+      "redFlags": [
+        "Un presupuesto muy por debajo del resto",
+        "Presupuestos imposibles de comparar entre sí",
+        "No poder verificar referencias ni seguro"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Comparar partida a partida",
+          "whenUseful": "Cuando manejas varios presupuestos.",
+          "constraints": [
+            "Mismas mediciones y calidades en los tres",
+            "Pedir aclaración de los huecos"
+          ],
+          "risks": ["Un total bajo puede ocultar partidas que faltan"],
+          "rejectWhen": ["Si un presupuesto no permite ninguna comparación"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Los presupuestos se comparan partida a partida",
+        "Se piden referencias de trabajos anteriores",
+        "Se solicita acreditación del seguro de responsabilidad civil"
+      ],
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l1-change-orders",
+      "levelId": "level-1",
+      "title": "\"Los extras los vamos viendo\"",
+      "category": "contracting",
+      "riskLevel": "low",
+      "learningObjective": "Exigir un procedimiento escrito para aprobar y valorar los cambios de obra.",
+      "scenarioText": "\"Los extras los vamos viendo sobre la marcha, no te preocupes\", dice con una sonrisa tranquilizadora. Es precisamente cuando deberías preocuparte.",
+      "playerChoices": [
+        {
+          "id": "agree-verbal",
+          "label": "Aceptar de palabra",
+          "consequence": "Sin precios pactados, cada \"imprevisto\" infla la factura y te deja sin margen para discutirlo.",
+          "scoreDelta": { "budget": -2, "trust": -2, "time": -1 },
+          "redFlag": "Cambios de obra sin precio acordado antes de ejecutarlos"
+        },
+        {
+          "id": "written-change-orders",
+          "label": "Exigir un procedimiento de cambios por escrito y con precio antes de ejecutar",
+          "consequence": "Acordáis que cualquier extra se aprueba por escrito y con precio cerrado antes de hacerlo. Así reduces al mínimo las sorpresas.",
+          "scoreDelta": { "budget": 2, "trust": 2, "knowledge": 1, "quality": 1 },
+          "lesson": "Pacta antes cómo se aprueban y cuánto cuestan los cambios.",
+          "betterQuestion": "¿Cómo aprobamos y valoramos un cambio de obra antes de ejecutarlo?",
+          "unlocks": ["card-l1-change-orders"],
+          "recommended": true
+        },
+        {
+          "id": "verbal-cap",
+          "label": "Poner un tope de gasto de palabra",
+          "consequence": "Un tope sin proceso ni precios sigue dejándote expuesto a discusiones.",
+          "scoreDelta": { "budget": -1, "trust": -1 }
+        },
+        {
+          "id": "whatsapp-only",
+          "label": "Pedir que al menos te lo avise por WhatsApp",
+          "consequence": "Tener rastro escrito es mejor que nada, pero sin precios cerrados sigues expuesto.",
+          "scoreDelta": { "knowledge": 1, "budget": -1 }
+        }
+      ],
+      "redFlags": [
+        "\"Los extras los vamos viendo\"",
+        "Cambios de obra sin precio acordado antes de ejecutarlos"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Procedimiento de cambios de obra",
+          "whenUseful": "Para gestionar imprevistos sin sorpresas en la factura.",
+          "constraints": [
+            "Aprobación por escrito antes de ejecutar",
+            "Precio cerrado para cada cambio"
+          ],
+          "risks": ["Un proceso lento puede frenar la obra si no se gestiona ágilmente"],
+          "rejectWhen": ["Si exigen ejecutar extras sin presupuesto previo"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Existe un proceso escrito para aprobar cambios",
+        "Cada cambio lleva un precio acordado antes de ejecutarse"
+      ],
+      "sourceIds": ["src-documentation-practice", "src-general-contracting-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l1-sign-decision",
+      "levelId": "level-1",
+      "title": "La hora de la firma",
+      "category": "contracting",
+      "riskLevel": "low",
+      "learningObjective": "Integrar alcance, pagos, exclusiones y cambios antes de comprometerse por escrito.",
+      "scenarioText": "Con todo lo que has aprendido sobre la mesa, el industrial te acerca el contrato y un bolígrafo. \"¿Firmamos?\"",
+      "playerChoices": [
+        {
+          "id": "sign-now",
+          "label": "Firmar ya, no vaya a perder a este industrial",
+          "consequence": "Firmar por miedo a perderlo es exactamente cómo acabas atado a un mal trato.",
+          "scoreDelta": { "budget": -2, "trust": -2, "safety": -1 },
+          "redFlag": "Firmar bajo presión de tiempo"
+        },
+        {
+          "id": "renegotiate-then-sign",
+          "label": "Renegociar para incluir desglose, hitos, exclusiones y cambios; luego firmar",
+          "consequence": "Llevas a la firma un contrato con alcance desglosado, pagos por hitos, exclusiones por escrito y procedimiento de cambios. Un industrial serio suele aceptarlo.",
+          "scoreDelta": {
+            "budget": 2,
+            "trust": 3,
+            "knowledge": 2,
+            "quality": 2,
+            "safety": 1
+          },
+          "lesson": "Las condiciones se ponen antes de firmar, nunca después.",
+          "betterQuestion": "¿Recoge el contrato el alcance, los pagos por hitos, las exclusiones y el procedimiento de cambios?",
+          "recommended": true
+        },
+        {
+          "id": "reject-keep-searching",
+          "label": "Rechazar y seguir buscando",
+          "consequence": "Defendible, pero pierdes tiempo si el problema era solo la falta de condiciones por escrito.",
+          "scoreDelta": { "trust": 1, "knowledge": 1, "time": -2 }
+        },
+        {
+          "id": "sign-note-verbally",
+          "label": "Firmar y comentar tus dudas de palabra",
+          "consequence": "Las dudas de palabra no valen nada una vez firmado.",
+          "scoreDelta": { "trust": -1, "budget": -1 }
+        }
+      ],
+      "redFlags": [
+        "Firmar bajo presión de tiempo",
+        "Renunciar a poner condiciones por miedo a perder al industrial"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Renegociar antes de firmar",
+          "whenUseful": "Justo antes de comprometerte por escrito.",
+          "constraints": ["Llevar todas las condiciones por escrito a la firma"],
+          "risks": [
+            "Un industrial serio suele aceptarlo; si se niega en redondo, puede ser una señal de alerta"
+          ],
+          "rejectWhen": ["Nunca firmes solo por presión de tiempo"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "El contrato recoge alcance, pagos por hitos, exclusiones y cambios",
+        "Existe copia firmada por ambas partes"
+      ],
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-l1-itemized-scope",
+      "levelId": "level-1",
+      "title": "Pide el presupuesto desglosado",
+      "body": "Un presupuesto por partidas, con mediciones y calidades, te permite comparar y reclamar. Una sola línea de \"reforma integral\" no sirve para ninguna de las dos cosas.",
+      "category": "scope",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l1-payment-milestones",
+      "levelId": "level-1",
+      "title": "Paga por hitos, no por adelantado",
+      "body": "Liga cada pago a un hito que puedas verificar. Los anticipos altos antes de empezar reducen tu control sobre la obra y tu margen de reclamación.",
+      "category": "budget",
+      "sourceIds": ["src-payment-staging-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l1-written-exclusions",
+      "levelId": "level-1",
+      "title": "Lo que no está escrito, no está incluido",
+      "body": "Pide por escrito qué incluye y qué excluye el presupuesto. Un \"todo incluido\" sin lista de exclusiones es una promesa vacía.",
+      "category": "contracting",
+      "sourceIds": ["src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l1-compare-like-for-like",
+      "levelId": "level-1",
+      "title": "Compara partida a partida",
+      "body": "No mires solo el total. El presupuesto más barato a menudo oculta partidas omitidas o calidades inferiores. Pide referencias y que te acrediten el seguro antes de decidir.",
+      "category": "budget",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l1-change-orders",
+      "levelId": "level-1",
+      "title": "Pacta los extras por escrito",
+      "body": "Acuerda de antemano cómo se aprueban y cuánto cuestan los cambios de obra. \"Ya lo vemos sobre la marcha\" es justo como acaba inflándose la factura.",
+      "category": "contracting",
+      "sourceIds": ["src-documentation-practice"],
+      "status": "draft"
+    }
+  ]
+}

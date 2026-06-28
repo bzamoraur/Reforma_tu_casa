@@ -1,0 +1,45 @@
+{
+  "_README": "EXAMPLE ONLY — not active. Copy the parts you want into .claude/settings.json and confirm before relying on them. See docs/hooks-plan.md. No hook here is destructive, sends data externally, or modifies user-level settings.",
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run test)",
+      "Bash(npm run build)",
+      "Bash(npm run content:lint)"
+    ],
+    "deny": ["Bash(npm audit fix --force)", "Bash(git push --force:*)", "Bash(rm -rf:*)"]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "_comment": "Auto-format files after Claude edits them.",
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$CLAUDE_FILE_PATHS\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "_comment": "Advisory warning before potentially dangerous shell commands.",
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "case \"$CLAUDE_TOOL_INPUT\" in *\"rm -rf\"*|*\"push --force\"*|*\"audit fix --force\"*) echo 'WARNING: potentially destructive command — review before approving.' ;; esac"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "_comment": "Run the content safety gate when a session ends (non-blocking).",
+        "matcher": "",
+        "hooks": [{ "type": "command", "command": "npm run content:lint || true" }]
+      }
+    ]
+  }
+}

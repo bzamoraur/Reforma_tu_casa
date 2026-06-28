@@ -1,0 +1,4 @@
+# Placeholder assets live here.
+# The MVP uses procedurally-drawn placeholders (coloured rectangles, CSS panels,
+# text). Any real or generated asset added here must be licensed and its
+# provenance documented (see docs/higgsfield-spike-plan.md and ADR-0005).
