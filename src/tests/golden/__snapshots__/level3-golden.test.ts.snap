@@ -1,0 +1,145 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Level 3 — golden > best possible score 1`] = `
+{
+  "budget": 4,
+  "knowledge": 12,
+  "quality": 9,
+  "safety": 12,
+  "time": 1,
+  "trust": 5,
+}
+`;
+
+exports[`Level 3 — golden > final score and summary for a recommended playthrough 1`] = `
+{
+  "overallRating": "excellent",
+  "ratings": {
+    "budget": "excellent",
+    "knowledge": "excellent",
+    "quality": "excellent",
+    "safety": "excellent",
+    "time": "excellent",
+    "trust": "excellent",
+  },
+  "score": {
+    "budget": 4,
+    "knowledge": 12,
+    "quality": 9,
+    "safety": 12,
+    "time": 1,
+    "trust": 5,
+  },
+}
+`;
+
+exports[`Level 3 — golden > recommended-choice score deltas per item 1`] = `
+[
+  {
+    "choice": "supervise-safely",
+    "item": "l3-demolition-supervision",
+    "scoreDelta": {
+      "knowledge": 2,
+      "quality": 1,
+      "safety": 3,
+      "trust": 1,
+    },
+  },
+  {
+    "choice": "stop-and-check",
+    "item": "l3-load-bearing-awareness",
+    "scoreDelta": {
+      "knowledge": 2,
+      "quality": 1,
+      "safety": 3,
+      "trust": 1,
+    },
+  },
+  {
+    "choice": "remeasure-real",
+    "item": "l3-measure-before-ordering",
+    "scoreDelta": {
+      "budget": 2,
+      "knowledge": 2,
+      "quality": 2,
+      "time": 1,
+    },
+  },
+  {
+    "choice": "stop-and-locate",
+    "item": "l3-hidden-installations",
+    "scoreDelta": {
+      "knowledge": 2,
+      "quality": 1,
+      "safety": 3,
+      "trust": 1,
+    },
+  },
+  {
+    "choice": "stop-document-assess",
+    "item": "l3-hidden-conditions",
+    "scoreDelta": {
+      "budget": 1,
+      "knowledge": 2,
+      "quality": 2,
+      "safety": 3,
+    },
+  },
+  {
+    "choice": "document-inhueso",
+    "item": "l3-document-demolition",
+    "scoreDelta": {
+      "budget": 1,
+      "knowledge": 2,
+      "quality": 2,
+      "trust": 2,
+    },
+  },
+]
+`;
+
+exports[`Level 3 — golden > required red flags 1`] = `
+[
+  "Demolición sin protecciones, sin EPIs y sin acotar la zona de trabajo",
+  "Invitar al propietario a ejecutar trabajo de demolición",
+  "«Siempre se hace así» como sustituto de un plan de seguridad",
+  "Continuar sobre una posible pared de carga sin comprobación de un técnico competente",
+  "Valorar a ojo si un elemento es estructural",
+  "Tratar cualquier pared como si todas fueran iguales",
+  "Encargar a medida con mediciones que no se han verificado sobre la obra real",
+  "Prisa por encargar «hoy» usando cifras del plano antiguo",
+  "Medir un solo punto y darlo por bueno para todo",
+  "Seguir trabajando junto a conducciones de agua, electricidad o gas sin identificar",
+  "Dar por inactiva una conducción sin que lo confirme un profesional",
+  "«Con cuidado» como sustituto de localizar las instalaciones",
+  "Tapar humedad o materiales antiguos inciertos sin valorar su origen",
+  "Diagnosticar a ojo una condición oculta para seguir sin pararse",
+  "Presión por «no perder el día» frente a un hallazgo importante",
+  "Cerrar paredes y suelos sin dejar registro fechado del estado «en hueso»",
+  "Fotos sueltas, sin fecha ni contexto, como única documentación",
+  "Confiar en la memoria en lugar de en un registro documentado",
+]
+`;
+
+exports[`Level 3 — golden > suggested audit checklist 1`] = `
+[
+  "La zona de trabajo está acotada y el resto de la vivienda protegido antes de empezar",
+  "El equipo dispone de los equipos de protección adecuados y hay control del polvo",
+  "El propietario supervisa sin ejecutar trabajo de demolición",
+  "Se detiene la demolición ante cualquier duda de que un elemento sea de carga",
+  "Un técnico competente comprueba por escrito qué es estructural antes de continuar",
+  "No se continúa sobre posibles elementos de carga sin comprobación previa",
+  "Las mediciones se toman sobre el espacio ya demolido, no sobre el plano antiguo",
+  "Se comprueban varios puntos y las medidas se dejan por escrito",
+  "Nada a medida se encarga hasta reconfirmar las mediciones",
+  "Se detiene el trabajo al aparecer conducciones no previstas",
+  "Se localizan e identifican las conducciones antes de continuar",
+  "Cualquier actuación sobre agua, electricidad o gas la realiza el profesional correspondiente",
+  "Ante una condición oculta se para y se documenta antes de tapar",
+  "Se valora el origen de la humedad y, ante materiales antiguos inciertos, lo evalúa un profesional",
+  "La decisión de continuar se toma con información, no a ciegas",
+  "Existen fotos antes/después fechadas del estado tras la demolición",
+  "Queda registrado el recorrido de las instalaciones a la vista, las mediciones reales y los hallazgos",
+  "Nada se cierra hasta que la fase de demolición está documentada",
+]
+`;

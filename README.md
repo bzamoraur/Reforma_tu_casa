@@ -8,9 +8,10 @@ An educational web game where you play an inexperienced homeowner renovating a f
 
 - ✅ **Level 1 — "Antes de firmar el presupuesto"** playable end-to-end (6 decision scenarios, scoring across 6 dimensions, feedback, learning-card unlocks, red-flag review, audit checklist, scorecard, LocalStorage progress).
 - ✅ **Level 2 — "Licencias, comunidad y planificación"** playable end-to-end (6 scenarios on permits/declarations awareness, community of owners, noise & schedules, waste, calendar realism, and when a technician is required). Level select + next-level progression in the menu.
-- 🔒 Levels 3–5 are present as locked stubs (content pending expert validation).
-- ✅ Content schema + safety linter, unit + golden tests (88 passing), 2 Playwright e2e specs, production build, GitHub Actions CI, clean `npm audit`.
-- ⚠️ All renovation content is **draft / pending expert validation**; the licence/community items intentionally stay awareness-only (no specific legal thresholds, fees or deadlines) until real sources and a human expert sign off.
+- ✅ **Level 3 — "Demolición, mediciones y condiciones ocultas"** playable end-to-end (6 scenarios on supervising demolition safely, load-bearing awareness, verifying measurements, hidden installations, hidden conditions, and documenting the "en hueso" phase).
+- 🔒 Levels 4–5 are present as locked stubs (content pending expert validation).
+- ✅ Content schema + safety linter, unit + golden tests (98 passing), 3 Playwright e2e specs, production build, GitHub Actions CI, clean `npm audit`.
+- ⚠️ All renovation content is **draft / pending expert validation**. The licence/community items stay awareness-only (no specific legal thresholds, fees or deadlines); the demolition/structural items teach **supervision and auditing only** — never how to demolish or modify anything — and route to a qualified technician.
 
 ## Run locally
 

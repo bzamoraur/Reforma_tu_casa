@@ -8,9 +8,9 @@ describe('content registry', () => {
     expect(levels.map((l) => l.level.order)).toEqual([1, 2, 3, 4, 5]);
   });
 
-  it('exposes the playable levels in order (Level 1 and Level 2)', () => {
+  it('exposes the playable levels in order', () => {
     const available = getAvailableLevels();
-    expect(available.map((l) => l.level.id)).toEqual(['level-1', 'level-2']);
+    expect(available.map((l) => l.level.id)).toEqual(['level-1', 'level-2', 'level-3']);
   });
 
   it('every available level has at least five decision scenarios', () => {
