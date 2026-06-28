@@ -1,0 +1,47 @@
+{
+  "_comment": "Provenance + licensing for every visual/audio asset, mirroring source-register.json. No asset ships without an entry here and a confirmed commercial-use license. AI-generated art is auxiliary and must record its model, prompt reference, and a human confirmation of ownership/commercial terms.",
+  "assets": [
+    {
+      "id": "salon-floor-before",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (self-served on website)",
+      "license": "PENDING — confirm ByteDance/Seedream commercial-use + output-ownership terms before ship",
+      "promptRef": "docs/art/salon-flooring-prompts.md#before",
+      "usage": "Salón room — flooring module, before state (Phaser room texture)",
+      "dateGenerated": "PENDING",
+      "limitations": "Auxiliary AI art. Not a source of truth. Must be visually consistent with the locked style bible and register-aligned with its after-state."
+    },
+    {
+      "id": "salon-floor-after",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (in-context edit of salon-floor-before)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/salon-flooring-prompts.md#after",
+      "usage": "Salón room — flooring module, after state (Phaser room texture)",
+      "dateGenerated": "PENDING",
+      "limitations": "Must be a pixel-aligned edit of salon-floor-before (only the floor changes)."
+    }
+  ],
+  "approvedFreeSources": [
+    {
+      "name": "Kenney",
+      "url": "https://kenney.nl/assets",
+      "license": "CC0 (public domain, commercial OK, no attribution required)",
+      "use": "furniture/fixture sprites"
+    },
+    {
+      "name": "game-icons.net",
+      "url": "https://game-icons.net",
+      "license": "CC BY 3.0 (attribution required)",
+      "use": "UI icons, hotspot pins, badges"
+    },
+    {
+      "name": "OpenGameArt / itch.io (CC0 only)",
+      "url": "https://opengameart.org",
+      "license": "CC0 (verify each asset individually)",
+      "use": "isometric tiles, gap-fill"
+    }
+  ]
+}
