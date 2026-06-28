@@ -28,6 +28,13 @@ beforeEach(() => {
 function q(testid: string): HTMLElement | null {
   return root.querySelector(`[data-testid="${testid}"]`);
 }
+function startLevel(levelId: string): void {
+  const btn = root.querySelector<HTMLButtonElement>(
+    `[data-testid="start-level"][data-level-id="${levelId}"]`,
+  );
+  if (!btn) throw new Error(`start button for ${levelId} not found`);
+  btn.click();
+}
 function clickChoice(choiceId: string): void {
   const btn = root.querySelector<HTMLButtonElement>(
     `[data-testid="choice"][data-choice-id="${choiceId}"]`,
@@ -39,15 +46,44 @@ function recommendedFor(index: number): string {
   const item = gc.getActivePack().items[index];
   return (item.playerChoices.find((c) => c.recommended) ?? item.playerChoices[0]).id;
 }
+/** Play the active level via recommended choices through to the scorecard. */
+function playActiveToScorecard(): void {
+  const count = gc.getActivePack().items.length;
+  for (let i = 0; i < count; i++) {
+    clickChoice(recommendedFor(i));
+    (q('next') as HTMLButtonElement).click();
+  }
+  (q('review-all') as HTMLButtonElement).click();
+  (q('generate-audit') as HTMLButtonElement).click();
+  (q('finish-level') as HTMLButtonElement).click();
+}
 
 describe('UIController', () => {
-  it('renders the menu with a start button', () => {
-    expect(q('start-game')).not.toBeNull();
+  it('renders the menu with a level list offering the available levels', () => {
+    expect(q('level-list')).not.toBeNull();
+    expect(
+      root.querySelector('[data-testid="start-level"][data-level-id="level-1"]'),
+    ).not.toBeNull();
+    // Level 2 is now playable and must also be offered.
+    expect(
+      root.querySelector('[data-testid="start-level"][data-level-id="level-2"]'),
+    ).not.toBeNull();
     expect(q('scenario')).toBeNull();
   });
 
+  it('shows the level briefing on the first scenario only', () => {
+    startLevel('level-1');
+    const intro = q('level-intro');
+    expect(intro).not.toBeNull();
+    expect(intro?.textContent).toBe(gc.getActivePack().level.intro);
+    // Advance past the first decision; the briefing should no longer show.
+    clickChoice(recommendedFor(0));
+    (q('next') as HTMLButtonElement).click();
+    expect(q('level-intro')).toBeNull();
+  });
+
   it('routes menu → scenarios → audit → scorecard and persists completion', () => {
-    (q('start-game') as HTMLButtonElement).click();
+    startLevel('level-1');
     expect(q('scenario')).not.toBeNull();
 
     const count = gc.getActivePack().items.length;
@@ -73,8 +109,35 @@ describe('UIController', () => {
     expect(q('progress-badge')).not.toBeNull();
   });
 
+  it('offers and completes Level 2 end-to-end', () => {
+    startLevel('level-2');
+    expect(q('scenario')).not.toBeNull();
+    expect(gc.getActivePack().level.id).toBe('level-2');
+
+    playActiveToScorecard();
+
+    expect(q('scorecard')).not.toBeNull();
+    expect(gc.isLevelCompleted('level-2')).toBe(true);
+    // Level 2 is the last available level, so no "next level" button.
+    expect(q('next-level')).toBeNull();
+  });
+
+  it('offers progression to the next level from the Level 1 scorecard', () => {
+    startLevel('level-1');
+    playActiveToScorecard();
+    expect(q('scorecard')).not.toBeNull();
+
+    const next = q('next-level') as HTMLButtonElement | null;
+    expect(next).not.toBeNull();
+    expect(next?.dataset.levelId).toBe('level-2');
+    next?.click();
+
+    expect(q('scenario')).not.toBeNull();
+    expect(gc.getActivePack().level.id).toBe('level-2');
+  });
+
   it('surfaces the better option when a non-recommended choice is picked', () => {
-    (q('start-game') as HTMLButtonElement).click();
+    startLevel('level-1');
     const item = gc.getActivePack().items[0];
     const bad = item.playerChoices.find((c) => !c.recommended);
     clickChoice(bad!.id);
@@ -83,7 +146,7 @@ describe('UIController', () => {
   });
 
   it('keeps finish-level disabled until the gate is satisfied', () => {
-    (q('start-game') as HTMLButtonElement).click();
+    startLevel('level-1');
     const count = gc.getActivePack().items.length;
     for (let i = 0; i < count; i++) {
       clickChoice(gc.getActivePack().items[i].playerChoices[0].id);

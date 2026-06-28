@@ -60,6 +60,17 @@ export function getLevelPack(levelId: string): LevelPack | undefined {
   return LEVELS.find((p) => p.level.id === levelId);
 }
 
+/**
+ * The next available level after the given one (by play order), or undefined if
+ * the given level is the last available one. Drives "next level" progression.
+ */
+export function getNextAvailableLevel(levelId: string): LevelPack | undefined {
+  const available = getAvailableLevels();
+  const idx = available.findIndex((p) => p.level.id === levelId);
+  if (idx < 0) return undefined;
+  return available[idx + 1];
+}
+
 export function getCard(cardId: string): LearningCard | undefined {
   return CARD_INDEX.get(cardId);
 }

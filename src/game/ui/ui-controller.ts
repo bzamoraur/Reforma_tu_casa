@@ -14,7 +14,7 @@ import {
   type LevelPack,
   type ScoreDelta,
 } from '../../domain/types';
-import { getAvailableLevels, getSource } from '../systems/content';
+import { getAvailableLevels, getNextAvailableLevel, getSource } from '../systems/content';
 import { sceneBridge } from '../systems/bridge';
 import type { ChoiceResult, GameController } from '../systems/game-controller';
 import { clear, el } from './dom';
@@ -66,39 +66,58 @@ export class UIController {
 
   // ---- Menu -------------------------------------------------------------
 
-  /** The level the menu offers: the first available level in the content data. */
-  private firstAvailableLevel(): LevelPack | undefined {
-    return getAvailableLevels()[0];
-  }
-
   private renderMenu(): HTMLElement {
-    const pack = this.firstAvailableLevel();
-    const completed = pack ? this.controller.isLevelCompleted(pack.level.id) : false;
-    const levelLabel = pack ? `Nivel ${pack.level.order} — ${pack.level.title}` : 'Próximamente';
+    const levels = getAvailableLevels();
+    const anyCompleted = levels.some((p) => this.controller.isLevelCompleted(p.level.id));
+
+    const list = el('div', { class: 'level-list', dataset: { testid: 'level-list' } });
+    if (levels.length === 0) {
+      list.append(el('p', { class: 'muted', text: 'Próximamente' }));
+    }
+    for (const pack of levels) {
+      const completed = this.controller.isLevelCompleted(pack.level.id);
+      list.append(
+        el(
+          'div',
+          { class: completed ? 'level-row completed' : 'level-row' },
+          el(
+            'div',
+            { class: 'level-meta' },
+            el('span', {
+              class: 'level-name',
+              text: `Nivel ${pack.level.order} — ${pack.level.title}`,
+            }),
+            pack.level.subtitle
+              ? el('span', { class: 'level-sub muted', text: pack.level.subtitle })
+              : null,
+            completed
+              ? el('span', {
+                  class: 'badge',
+                  text: '✓ Completado',
+                  dataset: { testid: 'progress-badge', levelId: pack.level.id },
+                })
+              : null,
+          ),
+          el('button', {
+            class: completed ? 'btn btn-ghost' : 'btn btn-primary',
+            text: completed ? 'Volver a jugar' : 'Empezar',
+            dataset: { testid: 'start-level', levelId: pack.level.id },
+            onClick: () => this.beginLevel(pack.level.id),
+          }),
+        ),
+      );
+    }
+
     return this.panel('menu', [
       el('h1', { class: 'title', text: 'Reforma Quest Madrid' }),
       el('p', {
         class: 'subtitle',
         text: 'Aprende a reformar tu piso en Madrid sin que te la cuelen.',
       }),
-      completed
-        ? el('p', {
-            class: 'badge',
-            text: `✓ ${levelLabel} · completado`,
-            dataset: { testid: 'progress-badge' },
-          })
-        : el('p', { class: 'muted', text: levelLabel }),
-      pack
+      list,
+      anyCompleted
         ? el('button', {
-            class: 'btn btn-primary',
-            text: completed ? 'Volver a jugar' : 'Empezar',
-            dataset: { testid: 'start-game' },
-            onClick: () => this.beginLevel(pack.level.id),
-          })
-        : null,
-      completed
-        ? el('button', {
-            class: 'btn btn-ghost',
+            class: 'btn btn-ghost btn-small',
             text: 'Reiniciar progreso',
             dataset: { testid: 'reset-progress' },
             onClick: () => {
@@ -130,6 +149,14 @@ export class UIController {
     });
 
     const children: (HTMLElement | null)[] = [
+      // The level's framing briefing, shown once before the first decision.
+      index === 0
+        ? el('p', {
+            class: 'level-intro',
+            text: pack.level.intro,
+            dataset: { testid: 'level-intro' },
+          })
+        : null,
       progress,
       el('h2', {
         class: 'scenario-title',
@@ -442,20 +469,29 @@ export class UIController {
     }
 
     const cards = this.controller.getUnlockedCards();
-    const levelTitle = this.controller.getActivePack().level.title;
+    const activeLevel = this.controller.getActivePack().level;
+    const nextPack = getNextAvailableLevel(activeLevel.id);
 
     return this.panel(
       'scorecard',
       [
-        el('h2', { class: 'title', text: `Resultado — ${levelTitle}` }),
+        el('h2', { class: 'title', text: `Resultado — ${activeLevel.title}` }),
         el('p', {
           class: 'overall',
           text: `Valoración global: ${RATING_LABELS[summary.overallRating]}`,
         }),
         rows,
         el('p', { class: 'muted', text: `Cartas de aprendizaje desbloqueadas: ${cards.length}` }),
+        nextPack
+          ? el('button', {
+              class: 'btn btn-primary',
+              text: `Siguiente nivel: ${nextPack.level.title}`,
+              dataset: { testid: 'next-level', levelId: nextPack.level.id },
+              onClick: () => this.beginLevel(nextPack.level.id),
+            })
+          : null,
         el('button', {
-          class: 'btn btn-primary',
+          class: nextPack ? 'btn btn-ghost' : 'btn btn-primary',
           text: 'Volver al menú',
           dataset: { testid: 'back-to-menu' },
           onClick: () => this.go({ kind: 'menu' }),

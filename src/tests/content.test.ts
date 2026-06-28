@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  getAllLevels,
-  getAvailableLevels,
-  getCard,
-  getLevelPack,
-  getSource,
-} from '../game/systems/content';
+import { getAllLevels, getAvailableLevels, getCard, getSource } from '../game/systems/content';
 
 describe('content registry', () => {
   it('loads and validates all five level packs in order', () => {
@@ -14,22 +8,25 @@ describe('content registry', () => {
     expect(levels.map((l) => l.level.order)).toEqual([1, 2, 3, 4, 5]);
   });
 
-  it('exposes exactly one available level in the MVP (Level 1)', () => {
+  it('exposes the playable levels in order (Level 1 and Level 2)', () => {
     const available = getAvailableLevels();
-    expect(available).toHaveLength(1);
-    expect(available[0].level.id).toBe('level-1');
+    expect(available.map((l) => l.level.id)).toEqual(['level-1', 'level-2']);
   });
 
-  it('Level 1 has at least five decision scenarios', () => {
-    const pack = getLevelPack('level-1');
-    expect(pack).toBeDefined();
-    expect((pack?.items.length ?? 0) >= 5).toBe(true);
+  it('every available level has at least five decision scenarios', () => {
+    for (const pack of getAvailableLevels()) {
+      expect(pack.items.length, `${pack.level.id} needs >= 5 items`).toBeGreaterThanOrEqual(5);
+    }
   });
 
-  it('every Level 1 item is draft or pending_expert_review (never verified)', () => {
-    const pack = getLevelPack('level-1');
-    for (const item of pack?.items ?? []) {
-      expect(['draft', 'pending_expert_review']).toContain(item.status);
+  it('every item in every available level is draft or pending_expert_review (never verified)', () => {
+    for (const pack of getAvailableLevels()) {
+      for (const item of pack.items) {
+        expect(['draft', 'pending_expert_review'], `${item.id} status`).toContain(item.status);
+      }
+      for (const card of pack.cards) {
+        expect(['draft', 'pending_expert_review'], `${card.id} status`).toContain(card.status);
+      }
     }
   });
 
@@ -41,11 +38,12 @@ describe('content registry', () => {
   });
 
   it('every referenced card unlock exists in the content', () => {
-    const pack = getLevelPack('level-1');
-    for (const item of pack?.items ?? []) {
-      for (const choice of item.playerChoices) {
-        for (const cardId of choice.unlocks ?? []) {
-          expect(getCard(cardId), `missing card ${cardId}`).toBeDefined();
+    for (const pack of getAvailableLevels()) {
+      for (const item of pack.items) {
+        for (const choice of item.playerChoices) {
+          for (const cardId of choice.unlocks ?? []) {
+            expect(getCard(cardId), `missing card ${cardId}`).toBeDefined();
+          }
         }
       }
     }
