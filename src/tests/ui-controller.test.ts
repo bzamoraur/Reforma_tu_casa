@@ -64,9 +64,12 @@ describe('UIController', () => {
     expect(
       root.querySelector('[data-testid="start-level"][data-level-id="level-1"]'),
     ).not.toBeNull();
-    // Level 2 is now playable and must also be offered.
+    // Levels 2 and 3 are now playable and must also be offered.
     expect(
       root.querySelector('[data-testid="start-level"][data-level-id="level-2"]'),
+    ).not.toBeNull();
+    expect(
+      root.querySelector('[data-testid="start-level"][data-level-id="level-3"]'),
     ).not.toBeNull();
     expect(q('scenario')).toBeNull();
   });
@@ -109,7 +112,7 @@ describe('UIController', () => {
     expect(q('progress-badge')).not.toBeNull();
   });
 
-  it('offers and completes Level 2 end-to-end', () => {
+  it('offers and completes Level 2 end-to-end, then offers Level 3', () => {
     startLevel('level-2');
     expect(q('scenario')).not.toBeNull();
     expect(gc.getActivePack().level.id).toBe('level-2');
@@ -118,7 +121,19 @@ describe('UIController', () => {
 
     expect(q('scorecard')).not.toBeNull();
     expect(gc.isLevelCompleted('level-2')).toBe(true);
-    // Level 2 is the last available level, so no "next level" button.
+    expect((q('next-level') as HTMLButtonElement | null)?.dataset.levelId).toBe('level-3');
+  });
+
+  it('offers and completes Level 3 end-to-end (the last available level)', () => {
+    startLevel('level-3');
+    expect(q('scenario')).not.toBeNull();
+    expect(gc.getActivePack().level.id).toBe('level-3');
+
+    playActiveToScorecard();
+
+    expect(q('scorecard')).not.toBeNull();
+    expect(gc.isLevelCompleted('level-3')).toBe(true);
+    // Level 3 is currently the last available level, so no "next level" button.
     expect(q('next-level')).toBeNull();
   });
 

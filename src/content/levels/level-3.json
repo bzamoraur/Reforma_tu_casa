@@ -3,10 +3,474 @@
     "id": "level-3",
     "order": 3,
     "title": "Demolición, mediciones y condiciones ocultas",
-    "subtitle": "Sorpresas, cambios de obra y documentación",
-    "intro": "La demolición destapa lo que nadie veía: humedades, suelos desnivelados, tabiques en mal estado. Aprende a documentar con fotos, a gestionar el \"hemos encontrado un problema\" y a no aceptar cambios de obra sin precio. (Nivel en preparación; contenido pendiente de validación experta.)",
-    "available": false
+    "subtitle": "Supervisar y auditar la demolición (Madrid)",
+    "intro": "Empieza la demolición y, con ella, las sorpresas. Tu papel no es coger la maza: es supervisar que se trabaje con seguridad, exigir que un técnico competente compruebe lo que pueda ser de carga, verificar las mediciones antes de pedir nada y reaccionar bien ante lo que aparezca detrás de los tabiques. Aún no sabes qué hay tras esas paredes: vas a aprender a comprobarlo y a documentarlo, no a darlo por hecho ni a improvisar.",
+    "available": true
   },
-  "items": [],
-  "cards": []
+  "items": [
+    {
+      "id": "l3-demolition-supervision",
+      "levelId": "level-3",
+      "title": "El primer día de demolición",
+      "category": "demolition",
+      "riskLevel": "high",
+      "learningObjective": "Supervisar que la demolición arranque con protecciones, equipos de seguridad y la zona acotada, sin meterse uno mismo a ejecutar trabajo de obra.",
+      "scenarioText": "Llega el equipo de demolición. No ves lonas que protejan el resto de la casa, nadie lleva mascarilla ni gafas, y el polvo ya empieza a colarse por toda la vivienda. El encargado te dice que «así se hace siempre, no te agobies» y te invita a coger una maza para «ir más rápido».",
+      "playerChoices": [
+        {
+          "id": "no-protection",
+          "label": "Dejar que empiecen sin protecciones «porque siempre se hace así»",
+          "consequence": "El polvo invade la casa, el resto de acabados se ensucia o se daña y nadie va protegido. «Siempre se hace así» no es un plan de seguridad.",
+          "scoreDelta": { "safety": -3, "quality": -2, "trust": -1 },
+          "redFlag": "Demolición sin protecciones, sin EPIs y sin acotar la zona"
+        },
+        {
+          "id": "supervise-safely",
+          "label": "Exigir protecciones, EPIs y zona acotada antes de empezar, y supervisar desde fuera",
+          "consequence": "Antes de tocar nada pides que protejan suelos y accesos, que el equipo use protección y que se acote la zona; supervisas desde fuera sin ejecutar trabajo de obra. La demolición arranca con orden y seguridad.",
+          "scoreDelta": { "safety": 3, "quality": 1, "knowledge": 2, "trust": 1 },
+          "lesson": "Tu papel en la demolición es supervisar y exigir seguridad, no coger la maza.",
+          "betterQuestion": "¿Está la zona acotada, el resto de la vivienda protegido y el equipo con protección antes de empezar?",
+          "unlocks": ["card-l3-supervise-not-execute"],
+          "recommended": true
+        },
+        {
+          "id": "cover-furniture",
+          "label": "Pedir solo que tapen los muebles y empezar igualmente",
+          "consequence": "Proteger algún mueble es mejor que nada, pero sin acotar la zona ni EPIs ni control del polvo sigues dejando la seguridad al azar.",
+          "scoreDelta": { "safety": -1, "quality": -1 }
+        },
+        {
+          "id": "grab-maza",
+          "label": "Coger una maza y ponerte tú a demoler para ir más rápido",
+          "consequence": "Te metes a ejecutar un trabajo para el que no estás preparado ni protegido: te expones a golpes, a polvo y a dañar instalaciones ocultas. Tu error: confundir supervisar con ejecutar.",
+          "scoreDelta": { "safety": -3, "quality": -1, "trust": -1 },
+          "redFlag": "El propietario se pone a ejecutar trabajo de demolición sin formación ni protección"
+        }
+      ],
+      "redFlags": [
+        "Demolición sin protecciones, sin EPIs y sin acotar la zona de trabajo",
+        "Invitar al propietario a ejecutar trabajo de demolición",
+        "«Siempre se hace así» como sustituto de un plan de seguridad"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Supervisión segura de la demolición",
+          "whenUseful": "Al arrancar la fase de demolición de una reforma.",
+          "constraints": [
+            "La zona se acota y el resto de la vivienda se protege antes de empezar",
+            "El equipo usa la protección adecuada y se controla el polvo"
+          ],
+          "risks": ["Sin control del polvo, los acabados y la salud se resienten"],
+          "rejectWhen": ["Si te invitan a ejecutar tú mismo el trabajo de demolición"],
+          "professionalRequired": true
+        }
+      ],
+      "acceptanceChecks": [
+        "La zona de trabajo está acotada y el resto de la vivienda protegido antes de empezar",
+        "El equipo dispone de los equipos de protección adecuados y hay control del polvo",
+        "El propietario supervisa sin ejecutar trabajo de demolición"
+      ],
+      "safetyNotice": "La demolición la ejecuta personal cualificado con protección adecuada. El papel del propietario es supervisar y exigir seguridad, nunca ejecutar trabajo de obra. Este juego no explica cómo demoler nada.",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l3-load-bearing-awareness",
+      "levelId": "level-3",
+      "title": "«Esta pared la quitamos y ya»",
+      "category": "structure_awareness",
+      "riskLevel": "high",
+      "learningObjective": "Reconocer que, ante cualquier duda de que un elemento sea de carga, hay que detener la demolición y exigir la comprobación de un técnico competente antes de actuar.",
+      "scenarioText": "El equipo va a seguir con una pared más gruesa de lo normal que separa el salón del pasillo. El encargado quiere continuar, «que esto es una pared como otra cualquiera». A ti te chirría: es más ancha, suena distinta al golpearla y no sabes qué función tiene en el edificio.",
+      "playerChoices": [
+        {
+          "id": "trust-foreman",
+          "label": "Fiarte del encargado: «es una pared normal», que sigan",
+          "consequence": "Nadie ha comprobado qué sostiene esa pared. Continuar sobre un posible elemento de carga sin verificación puede comprometer la seguridad de todo el edificio. Tu error: dar por hecho lo que solo un técnico puede confirmar.",
+          "scoreDelta": { "safety": -3, "quality": -1, "trust": -1 },
+          "redFlag": "Continuar sobre una posible pared de carga sin comprobación técnica"
+        },
+        {
+          "id": "stop-and-check",
+          "label": "Parar y exigir que un técnico competente compruebe si es un elemento de carga antes de continuar",
+          "consequence": "Detienes la demolición en esa pared y pides que un técnico competente compruebe por escrito si es estructural y qué haría falta. Si no lo es, se sigue; si lo es, no se improvisa. La seguridad del edificio no se decide a ojo.",
+          "scoreDelta": { "safety": 3, "knowledge": 2, "quality": 1, "trust": 1 },
+          "lesson": "Ante cualquier duda de carga, se para y lo comprueba un técnico.",
+          "betterQuestion": "¿Puede un técnico competente confirmar por escrito si esta pared es de carga antes de seguir?",
+          "unlocks": ["card-l3-stop-on-doubt"],
+          "recommended": true
+        },
+        {
+          "id": "leave-for-last",
+          "label": "Dejar esa pared para el final y seguir con el resto sin aclararlo",
+          "consequence": "Avanzar por lo que es claramente no estructural está bien, pero la duda de carga hay que resolverla con un técnico antes de tocar esa pared, no aparcarla a mitad de obra.",
+          "scoreDelta": { "safety": -1, "knowledge": -1 }
+        },
+        {
+          "id": "judge-by-eye",
+          "label": "Decidir tú a ojo, por el grosor, que «seguro que no es de carga»",
+          "consequence": "Valorar a ojo si algo es estructural es jugártela. Esa valoración corresponde a un técnico competente, no a una corazonada en mitad de la obra.",
+          "scoreDelta": { "safety": -3, "knowledge": -1 },
+          "redFlag": "Valorar a ojo si un elemento es estructural"
+        }
+      ],
+      "redFlags": [
+        "Continuar sobre una posible pared de carga sin comprobación de un técnico competente",
+        "Valorar a ojo si un elemento es estructural",
+        "Tratar cualquier pared como si todas fueran iguales"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Comprobación estructural antes de continuar",
+          "whenUseful": "Ante cualquier elemento que pudiera ser de carga durante la demolición.",
+          "constraints": [
+            "La demolición se detiene ante cualquier duda de carga",
+            "Un técnico competente comprueba por escrito qué es estructural"
+          ],
+          "risks": ["Una valoración a ojo puede comprometer la seguridad del edificio"],
+          "rejectWhen": ["Si proponen continuar sobre una posible pared de carga sin comprobación"],
+          "professionalRequired": true
+        }
+      ],
+      "acceptanceChecks": [
+        "Se detiene la demolición ante cualquier duda de que un elemento sea de carga",
+        "Un técnico competente comprueba por escrito qué es estructural antes de continuar",
+        "No se continúa sobre posibles elementos de carga sin comprobación previa"
+      ],
+      "safetyNotice": "Identificar elementos de carga y proyectar cualquier modificación corresponde a un técnico competente. Ante la duda, se detiene la obra. Este juego no indica cómo actuar sobre la estructura.",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l3-measure-before-ordering",
+      "levelId": "level-3",
+      "title": "«Pide ya los muebles, que las medidas son estas»",
+      "category": "scope",
+      "riskLevel": "low",
+      "learningObjective": "Verificar y reconfirmar las mediciones reales sobre la obra ya demolida antes de pedir o encargar nada a medida.",
+      "scenarioText": "Con los tabiques fuera, el espacio real no es el del plano antiguo. El comercial de la cocina te mete prisa: «dame las medidas de hoy y lo encargo, que si no se retrasa todo». Las cifras que maneja salen del plano original, no de lo que hay ahora delante de ti.",
+      "playerChoices": [
+        {
+          "id": "use-old-plan",
+          "label": "Dar las medidas del plano antiguo para no retrasar el pedido",
+          "consequence": "Encargas a medida con cifras que ya no corresponden a la realidad. Si no encaja, pagas el error y pierdes tiempo, por medir sobre un plano viejo en vez de sobre la obra.",
+          "scoreDelta": { "budget": -3, "quality": -1, "time": -2 },
+          "redFlag": "Encargar a medida con mediciones sin verificar sobre la obra real"
+        },
+        {
+          "id": "remeasure-real",
+          "label": "Medir y reconfirmar sobre la obra real, en varios puntos, y dejar las medidas por escrito antes de encargar",
+          "consequence": "Tomáis las medidas sobre el espacio ya demolido, comprobáis en varios puntos (las paredes rara vez son perfectas) y las dejáis firmadas antes de pedir nada. Así reduces el riesgo de que lo que llegue no encaje.",
+          "scoreDelta": { "budget": 2, "quality": 2, "knowledge": 2, "time": 1 },
+          "lesson": "Mide sobre la obra real, en varios puntos y por escrito, antes de encargar.",
+          "betterQuestion": "¿Hemos reconfirmado estas medidas sobre la obra ya demolida antes de encargar nada?",
+          "unlocks": ["card-l3-measure-real"],
+          "recommended": true
+        },
+        {
+          "id": "single-measure",
+          "label": "Fiarte de una sola medida tomada deprisa en un punto",
+          "consequence": "Una pared puede tener centímetros de diferencia de un extremo a otro. Una sola cifra tomada con prisa no es una medición fiable.",
+          "scoreDelta": { "budget": -1, "quality": -1 },
+          "redFlag": "Medir un único punto y darlo por bueno para todo el encargo"
+        },
+        {
+          "id": "measure-no-record",
+          "label": "Medir tú una vez, pero sin reconfirmar ni dejarlo por escrito",
+          "consequence": "Medir está bien, pero sin reconfirmar ni dejar las medidas firmadas, cualquier malentendido posterior será tu palabra contra la suya.",
+          "scoreDelta": { "budget": -1, "knowledge": -1 }
+        }
+      ],
+      "redFlags": [
+        "Encargar a medida con mediciones que no se han verificado sobre la obra real",
+        "Prisa por encargar «hoy» usando cifras del plano antiguo",
+        "Medir un solo punto y darlo por bueno para todo"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Medición sobre la obra real",
+          "whenUseful": "Antes de encargar cualquier elemento a medida tras la demolición.",
+          "constraints": [
+            "Se mide sobre el espacio ya demolido, no sobre el plano antiguo",
+            "Se comprueban varios puntos y las medidas se dejan por escrito"
+          ],
+          "risks": ["Una sola medida, o una cifra del plano antiguo, puede no encajar"],
+          "rejectWhen": ["Si te presionan para encargar a medida sin reconfirmar las medidas"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Las mediciones se toman sobre el espacio ya demolido, no sobre el plano antiguo",
+        "Se comprueban varios puntos y las medidas se dejan por escrito",
+        "Nada a medida se encarga hasta reconfirmar las mediciones"
+      ],
+      "sourceIds": ["src-documentation-practice", "src-general-contracting-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l3-hidden-installations",
+      "levelId": "level-3",
+      "title": "Lo que corre por dentro de las paredes",
+      "category": "safety",
+      "riskLevel": "high",
+      "learningObjective": "Comprender que tras paredes y suelos pueden discurrir conducciones de agua, electricidad o gas, y exigir que se localicen y respeten antes de seguir.",
+      "scenarioText": "Al abrir una roza aparece un tubo y, un poco más allá, unos cables que nadie esperaba. El encargado quiere seguir «con cuidado» sin saber qué son ni de dónde vienen. Nadie ha localizado por dónde pasan las conducciones de la vivienda.",
+      "playerChoices": [
+        {
+          "id": "keep-going-careful",
+          "label": "Dejar que sigan «con cuidado» sin saber qué son esos tubos y cables",
+          "consequence": "Trabajar a ciegas junto a conducciones desconocidas puede provocar un escape de agua o de gas, o tocar una conducción con tensión. «Con cuidado» no sustituye a saber qué hay ahí. Tu error: no parar a identificar.",
+          "scoreDelta": { "safety": -3, "quality": -1, "trust": -1 },
+          "redFlag": "Seguir trabajando junto a conducciones sin identificar"
+        },
+        {
+          "id": "stop-and-locate",
+          "label": "Parar y pedir que se localicen e identifiquen las conducciones, y que el profesional correspondiente las gestione",
+          "consequence": "Detienes el trabajo en esa zona y pides que se localicen e identifiquen las conducciones antes de seguir; cualquier actuación sobre ellas la hace el profesional correspondiente. Reduces el riesgo de un escape, de un cortocircuito o de una descarga.",
+          "scoreDelta": { "safety": 3, "quality": 1, "knowledge": 2, "trust": 1 },
+          "lesson": "Si aparecen tubos o cables, se para y se identifican antes de seguir.",
+          "betterQuestion": "¿Hemos localizado e identificado las conducciones antes de seguir trabajando en esa zona?",
+          "unlocks": ["card-l3-find-installations"],
+          "recommended": true
+        },
+        {
+          "id": "photo-and-go",
+          "label": "Hacer una foto y seguir, dejando la duda para «cuando venga el fontanero»",
+          "consequence": "Documentar el hallazgo está bien, pero si se sigue trabajando alrededor sin identificarlo primero, la foto no evita el accidente.",
+          "scoreDelta": { "safety": -1, "knowledge": -1 }
+        },
+        {
+          "id": "assume-dead",
+          "label": "Decidir tú que «será un tubo viejo que no va a ningún lado» y apartarlo",
+          "consequence": "Dar por muerta una conducción sin comprobarlo es un error peligroso: un tubo o un cable «viejo» puede estar perfectamente en servicio.",
+          "scoreDelta": { "safety": -3, "knowledge": -1 },
+          "redFlag": "Dar por inactiva una conducción sin que un profesional lo confirme"
+        }
+      ],
+      "redFlags": [
+        "Seguir trabajando junto a conducciones de agua, electricidad o gas sin identificar",
+        "Dar por inactiva una conducción sin que lo confirme un profesional",
+        "«Con cuidado» como sustituto de localizar las instalaciones"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Localización de conducciones antes de seguir",
+          "whenUseful": "Cuando aparecen tubos o cables no previstos durante la obra.",
+          "constraints": [
+            "Se detiene el trabajo en esa zona al aparecer conducciones",
+            "Se localizan e identifican antes de continuar"
+          ],
+          "risks": [
+            "Trabajar junto a conducciones sin identificar puede causar un accidente grave"
+          ],
+          "rejectWhen": ["Si insisten en seguir «con cuidado» sin saber qué hay ahí"],
+          "professionalRequired": true
+        }
+      ],
+      "acceptanceChecks": [
+        "Se detiene el trabajo al aparecer conducciones no previstas",
+        "Se localizan e identifican las conducciones antes de continuar",
+        "Cualquier actuación sobre agua, electricidad o gas la realiza el profesional correspondiente"
+      ],
+      "safetyNotice": "Las conducciones de agua, electricidad y gas las gestiona el profesional correspondiente. Este juego enseña a localizarlas y respetarlas, nunca a manipularlas.",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l3-hidden-conditions",
+      "levelId": "level-3",
+      "title": "La sorpresa detrás del alicatado",
+      "category": "scope",
+      "riskLevel": "medium",
+      "learningObjective": "Saber reaccionar ante condiciones ocultas (humedad, materiales antiguos o inciertos, daños) parando, valorando con quien corresponda y documentando antes de tapar.",
+      "scenarioText": "Al retirar el alicatado del baño aparece una mancha de humedad extendida y, debajo, un material antiguo que nadie sabe identificar con certeza. El encargado propone «tapar y seguir, que esto no es nada» para no perder el día.",
+      "playerChoices": [
+        {
+          "id": "cover-and-go",
+          "label": "Tapar y seguir «que esto no es nada» para no perder el día",
+          "consequence": "Tapar una humedad sin saber de dónde viene suele hacerla reaparecer más cara, y cubrir un material antiguo sin identificarlo puede ser un riesgo. Enterrar el problema no es lo mismo que entenderlo.",
+          "scoreDelta": { "safety": -2, "quality": -3, "budget": -2 },
+          "redFlag": "Tapar humedad o materiales inciertos sin valorar su origen"
+        },
+        {
+          "id": "stop-document-assess",
+          "label": "Parar, documentar el hallazgo, no tapar y pedir que se valore el origen con quien corresponda",
+          "consequence": "Detienes el trabajo en esa zona, fotografías la humedad y el material, no tapas nada y pides que se valore el origen y, ante materiales antiguos inciertos, que lo evalúe un profesional. Decides con información, no a ciegas.",
+          "scoreDelta": { "safety": 3, "quality": 2, "knowledge": 2, "budget": 1 },
+          "lesson": "Una sorpresa no se tapa: se documenta y se valora su origen.",
+          "betterQuestion": "¿Sabemos de dónde viene esta humedad y qué es este material antes de tapar nada?",
+          "unlocks": ["card-l3-understand-surprises"],
+          "recommended": true
+        },
+        {
+          "id": "diagnose-by-eye",
+          "label": "Decidir tú que «es humedad de condensación» y pintar encima",
+          "consequence": "Diagnosticar a ojo el origen de una humedad y pintar encima no trata la causa: la humedad suele reaparecer. Pintar no es resolver.",
+          "scoreDelta": { "quality": -2, "budget": -1 },
+          "redFlag": "Diagnosticar el origen de una humedad a ojo sin valorarlo"
+        },
+        {
+          "id": "photo-but-cover",
+          "label": "Sacar una foto pero dejar que tapen igualmente para no parar la obra",
+          "consequence": "La foto sirve para reclamar, pero si dejas que tapen sin valorar el origen, el problema sigue ahí, ahora escondido.",
+          "scoreDelta": { "quality": -1, "budget": -1 }
+        }
+      ],
+      "redFlags": [
+        "Tapar humedad o materiales antiguos inciertos sin valorar su origen",
+        "Diagnosticar a ojo una condición oculta para seguir sin pararse",
+        "Presión por «no perder el día» frente a un hallazgo importante"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Parar y valorar ante una condición oculta",
+          "whenUseful": "Cuando aparece humedad, daños o materiales inciertos durante la obra.",
+          "constraints": [
+            "No se tapa el hallazgo hasta valorarlo y documentarlo",
+            "El origen y los materiales inciertos los valora quien corresponda"
+          ],
+          "risks": ["Tapar sin entender el origen suele salir más caro después"],
+          "rejectWhen": ["Si proponen tapar «que no es nada» para no perder el día"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Ante una condición oculta se para y se documenta antes de tapar",
+        "Se valora el origen de la humedad y, ante materiales antiguos inciertos, lo evalúa un profesional",
+        "La decisión de continuar se toma con información, no a ciegas"
+      ],
+      "safetyNotice": "Ante materiales antiguos cuya naturaleza no esté clara, no se manipulan ni se retiran por cuenta propia: los evalúa un profesional. Este juego no identifica ni trata materiales peligrosos.",
+      "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    },
+    {
+      "id": "l3-document-demolition",
+      "levelId": "level-3",
+      "title": "Lo que apareció hay que dejarlo registrado",
+      "category": "contracting",
+      "riskLevel": "low",
+      "learningObjective": "Documentar la fase de demolición (fotos antes/después, mediciones, hallazgos e instalaciones a la vista) para tomar decisiones y poder reclamar.",
+      "scenarioText": "La demolición termina. Por primera vez se ve la vivienda «en hueso»: el recorrido de algunas conducciones, los hallazgos del baño, las medidas reales. El encargado quiere cerrar paredes y suelos cuanto antes. Si no registras esto ahora, desaparece detrás del tabique nuevo.",
+      "playerChoices": [
+        {
+          "id": "close-everything",
+          "label": "Dejar que cierren todo ya, sin documentar nada",
+          "consequence": "En cuanto se tapa, el recorrido de las conducciones y los hallazgos desaparecen. Si más adelante hay un problema, no tendrás forma de saber qué había ni de reclamar: lo irrepetible no se registró.",
+          "scoreDelta": { "quality": -2, "knowledge": -1, "trust": -2 },
+          "redFlag": "Cerrar paredes y suelos sin dejar registro del estado «en hueso»"
+        },
+        {
+          "id": "document-inhueso",
+          "label": "Documentar antes de cerrar nada: fotos antes/después fechadas, recorrido de instalaciones, mediciones y hallazgos",
+          "consequence": "Antes de cerrar paredes y suelos, fotografías el estado «en hueso», anotas el recorrido de las instalaciones a la vista, las medidas reales y los hallazgos, todo fechado. Tendrás un registro para decidir y para reclamar.",
+          "scoreDelta": { "quality": 2, "knowledge": 2, "trust": 2, "budget": 1 },
+          "lesson": "Lo que se cierra sin registrar es muy difícil de recuperar.",
+          "betterQuestion": "¿Tenemos fotos fechadas, mediciones y hallazgos antes de cerrar paredes y suelos?",
+          "unlocks": ["card-l3-document-inhueso"],
+          "recommended": true
+        },
+        {
+          "id": "loose-photos",
+          "label": "Hacer cuatro fotos sueltas con el móvil, sin fecha ni orden",
+          "consequence": "Algo es mejor que nada, pero fotos sueltas sin fecha, sin contexto ni mediciones valen poco cuando de verdad necesitas demostrar algo.",
+          "scoreDelta": { "knowledge": -1, "trust": -1 }
+        },
+        {
+          "id": "trust-memory",
+          "label": "Fiarte de la memoria y de que el industrial «ya se acuerda de todo»",
+          "consequence": "La memoria no es un registro. Lo que no quede documentado, fechado y guardado es difícil de defender cuando hay una discusión.",
+          "scoreDelta": { "knowledge": -2, "trust": -1 },
+          "redFlag": "Confiar en la memoria en lugar de en un registro documentado"
+        }
+      ],
+      "redFlags": [
+        "Cerrar paredes y suelos sin dejar registro fechado del estado «en hueso»",
+        "Fotos sueltas, sin fecha ni contexto, como única documentación",
+        "Confiar en la memoria en lugar de en un registro documentado"
+      ],
+      "legitimateWorkarounds": [
+        {
+          "title": "Documentar antes de cerrar",
+          "whenUseful": "Al terminar la demolición, antes de cerrar paredes y suelos.",
+          "constraints": [
+            "Se documenta el estado «en hueso» antes de cerrar nada",
+            "Fotos fechadas, mediciones y hallazgos quedan guardados"
+          ],
+          "risks": ["Lo que se cierra sin registrar es difícil de recuperar o de reclamar"],
+          "rejectWhen": ["Si quieren cerrar paredes y suelos sin dejar registro"],
+          "professionalRequired": false
+        }
+      ],
+      "acceptanceChecks": [
+        "Existen fotos antes/después fechadas del estado tras la demolición",
+        "Queda registrado el recorrido de las instalaciones a la vista, las mediciones reales y los hallazgos",
+        "Nada se cierra hasta que la fase de demolición está documentada"
+      ],
+      "sourceIds": ["src-documentation-practice", "src-general-contracting-practice"],
+      "status": "draft",
+      "expertReview": { "required": true, "status": "not_requested" }
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-l3-supervise-not-execute",
+      "levelId": "level-3",
+      "title": "Supervisar no es ejecutar",
+      "body": "Tu trabajo en la demolición es exigir protecciones, EPIs y zona acotada, y supervisar desde fuera, no coger la maza. Ejecutar trabajo de obra para el que no estás preparado es peligroso para ti y para la casa.",
+      "category": "demolition",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l3-stop-on-doubt",
+      "levelId": "level-3",
+      "title": "Ante la duda de carga, se para",
+      "body": "Si una pared puede ser estructural, se detiene la demolición y lo comprueba un técnico competente antes de seguir. La seguridad del edificio no se decide a ojo ni por el grosor.",
+      "category": "structure_awareness",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l3-measure-real",
+      "levelId": "level-3",
+      "title": "Mide sobre la obra, no sobre el plano",
+      "body": "Con los tabiques fuera, el espacio real cambia. Reconfirma las medidas en varios puntos y por escrito antes de encargar nada a medida: con una cifra del plano antiguo o una sola medida tomada deprisa, acabas pagando piezas que no encajan.",
+      "category": "scope",
+      "sourceIds": ["src-documentation-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l3-find-installations",
+      "levelId": "level-3",
+      "title": "Detrás de las paredes hay instalaciones",
+      "body": "Si aparecen tubos o cables, se para, se identifican y se deja que el profesional correspondiente actúe. «Con cuidado» no basta: una conducción «vieja» puede seguir en servicio y un escape o una descarga no avisan.",
+      "category": "safety",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l3-understand-surprises",
+      "levelId": "level-3",
+      "title": "Una sorpresa no se tapa, se entiende",
+      "body": "Ante humedad o materiales antiguos inciertos, documenta, no cubras y valora el origen antes de continuar. Tapar sin entender suele hacer que el problema reaparezca, más caro y escondido.",
+      "category": "scope",
+      "sourceIds": ["src-general-contracting-practice"],
+      "status": "draft"
+    },
+    {
+      "id": "card-l3-document-inhueso",
+      "levelId": "level-3",
+      "title": "Documenta el «en hueso»",
+      "body": "Antes de cerrar paredes y suelos, guarda fotos antes/después fechadas, el recorrido de las instalaciones a la vista, las mediciones reales y los hallazgos. Lo que se cierra sin registrar es muy difícil de recuperar y de reclamar.",
+      "category": "contracting",
+      "sourceIds": ["src-documentation-practice"],
+      "status": "draft"
+    }
+  ]
 }

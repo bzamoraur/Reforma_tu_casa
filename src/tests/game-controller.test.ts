@@ -34,8 +34,8 @@ describe('GameController — error branches', () => {
   it('throws on unknown or unavailable levels', () => {
     const gc = new GameController(storage);
     expect(() => gc.enterLevel('nope')).toThrow(/Unknown level/);
-    // level-3 remains an unavailable stub (level-2 is now playable).
-    expect(() => gc.enterLevel('level-3')).toThrow(/not available/);
+    // level-4 remains an unavailable stub (levels 1-3 are now playable).
+    expect(() => gc.enterLevel('level-4')).toThrow(/not available/);
   });
 
   it('throws when accessing the active pack before entering a level', () => {
