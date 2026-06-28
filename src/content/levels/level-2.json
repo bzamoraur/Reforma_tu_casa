@@ -26,7 +26,7 @@
         },
         {
           "id": "verify",
-          "label": "Comprobar con la administración competente o un técnico qué trámite corresponde a tu caso",
+          "label": "Comprobar el trámite con la administración o un técnico",
           "consequence": "Preguntas en la fuente correcta antes de empezar. Sabes qué trámite aplica (si lo hay) y partes sobre seguro, no sobre suposiciones.",
           "scoreDelta": { "knowledge": 2, "safety": 1, "trust": 1, "budget": 1 },
           "lesson": "Qué trámite necesita una obra depende del caso: se comprueba, no se supone.",
@@ -91,7 +91,7 @@
         },
         {
           "id": "ask-community",
-          "label": "Revisar los estatutos y pedir por escrito permiso a la comunidad antes de tocar elementos comunes",
+          "label": "Revisar los estatutos y pedir permiso a la comunidad",
           "consequence": "Distingues lo privativo de lo común, consultas los estatutos y llevas el permiso por escrito. Evitas conflictos y trabajas con respaldo.",
           "scoreDelta": { "knowledge": 2, "trust": 2, "quality": 1 },
           "lesson": "Lo que afecta a elementos comunes no se decide en solitario.",
@@ -158,7 +158,7 @@
         },
         {
           "id": "respect-hours",
-          "label": "Acordar horarios compatibles con las normas de la comunidad y municipales, y avisar a los vecinos",
+          "label": "Acordar horarios permitidos y avisar a los vecinos",
           "consequence": "Fijas horarios razonables, evitas los días de descanso y avisas a los vecinos del calendario. La obra avanza sin abrir frentes innecesarios.",
           "scoreDelta": { "trust": 2, "knowledge": 1, "safety": 1 },
           "lesson": "Respetar los horarios y avisar a los vecinos previene conflictos y, según lo que marquen las normas, posibles sanciones.",
@@ -223,7 +223,7 @@
         },
         {
           "id": "plan-waste",
-          "label": "Acordar por escrito quién retira los escombros, cómo y a dónde, y dejarlo en el presupuesto",
+          "label": "Acordar por escrito la retirada de escombros",
           "consequence": "Queda claro quién se encarga de los residuos, cómo se retiran y dónde se gestionan, y está presupuestado. Sin sorpresas ni montones en el portal.",
           "scoreDelta": { "budget": 2, "knowledge": 1, "quality": 1, "trust": 1 },
           "lesson": "La gestión de escombros se acuerda y se presupuesta antes, no se improvisa.",
@@ -290,7 +290,7 @@
         },
         {
           "id": "realistic-plan",
-          "label": "Pedir un calendario por fases, con holguras, plazos de materiales y orden de los gremios, y anotar los riesgos",
+          "label": "Pedir un calendario por fases, con holguras y riesgos",
           "consequence": "Tienes un calendario por fases con holguras y un mapa de los principales riesgos. Cuando llegue un imprevisto (que llegará), sabrás dónde estás.",
           "scoreDelta": { "time": 2, "knowledge": 2, "budget": 1, "quality": 1, "trust": 1 },
           "lesson": "Un buen calendario tiene fases, holguras y una lista de los riesgos previsibles.",
@@ -355,7 +355,7 @@
         },
         {
           "id": "check-technician",
-          "label": "Pedir que un técnico competente compruebe si algún elemento es estructural antes de tocar nada",
+          "label": "Pedir a un técnico que compruebe qué es estructural",
           "consequence": "Un técnico te dice qué es estructural y qué no, y si la reforma necesita un proyecto. Sabes por dónde puedes ir y por dónde no.",
           "scoreDelta": { "safety": 3, "knowledge": 2, "quality": 1, "trust": 1 },
           "lesson": "Hay cosas que exceden a un industrial: ante la duda estructural, un técnico.",
