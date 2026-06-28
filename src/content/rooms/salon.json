@@ -1,0 +1,110 @@
+{
+  "house": { "id": "mi-piso", "name": "Mi piso" },
+  "rooms": [
+    {
+      "id": "salon",
+      "name": "Salón",
+      "order": 1,
+      "intro": "Tu nuevo salón. La luz entra bien, pero el suelo ha visto mejores días. Echa un vistazo y decide por dónde empezar.",
+      "art": { "before": "salon-floor-before", "after": "salon-floor-after" },
+      "hotspots": [
+        {
+          "id": "hs-salon-floor",
+          "label": "Mira el suelo",
+          "discoverHint": "El parqué está gastado y desigual: se puede renovar.",
+          "projectId": "salon-flooring",
+          "x": 0.5,
+          "y": 0.72
+        }
+      ],
+      "projectIds": ["salon-flooring"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "salon-flooring",
+      "roomId": "salon",
+      "title": "Renovar el suelo del salón",
+      "opportunity": "El parqué del salón está gastado y desigual. Es momento de renovar el suelo... pero bien hecho.",
+      "playerRole": "choose_design",
+      "learn": {
+        "title": "Antes de cambiar el suelo",
+        "body": "Un suelo nuevo dura lo que dura su base. Antes de instalar, comprueba que el soporte está nivelado y seco, elige el material según el uso de la estancia (un salón es zona de paso) y deja la calidad y el alcance por escrito. Tu papel es decidir bien y supervisar; la instalación la hace el profesional.",
+        "sourceIds": ["src-general-contracting-practice"]
+      },
+      "decide": {
+        "id": "salon-flooring-decide",
+        "levelId": "salon",
+        "title": "El suelo del salón, gastado",
+        "category": "flooring",
+        "riskLevel": "low",
+        "learningObjective": "Saber que un suelo nuevo empieza por el soporte: comprobar que está nivelado y seco, elegir el material según el uso y dejar el alcance por escrito.",
+        "scenarioText": "El suelo del salón está gastado y desigual. Quieres renovarlo. El instalador te ofrece varias opciones y mete prisa para empezar mañana mismo.",
+        "playerChoices": [
+          {
+            "id": "cheapest-over",
+            "label": "Poner el suelo más barato directamente encima, sin mirar qué hay debajo",
+            "consequence": "Si el soporte está desnivelado o húmedo, el suelo nuevo se mueve, se abomba o cruje al poco tiempo. Lo barato, mal puesto, sale caro.",
+            "scoreDelta": { "budget": -2, "quality": -2 },
+            "redFlag": "Instalar un suelo nuevo sin comprobar el estado del soporte"
+          },
+          {
+            "id": "choose-and-supervise",
+            "label": "Elegir el material según el uso, comprobar que el soporte está nivelado y seco, y dejarlo por escrito",
+            "consequence": "Compruebas el soporte, eliges un material adecuado para una zona de paso y dejas calidad y alcance por escrito. El instalador trabaja sobre una base sana y sabes qué compras.",
+            "scoreDelta": { "quality": 2, "knowledge": 2, "budget": 1, "trust": 1 },
+            "lesson": "Un buen suelo empieza por lo que hay debajo.",
+            "betterQuestion": "¿Está el soporte nivelado y seco, y es el material adecuado para el uso de la estancia?",
+            "recommended": true
+          },
+          {
+            "id": "fanciest",
+            "label": "Elegir el material más caro y bonito, sin pensar en el uso",
+            "consequence": "Lo bonito no siempre aguanta el trajín diario de un salón. Pagas de más por algo que quizá se estropee antes de tiempo.",
+            "scoreDelta": { "budget": -2, "quality": -1 }
+          },
+          {
+            "id": "trust-installer-blindly",
+            "label": "Dejar que el instalador lo decida todo por ti, sin preguntar ni anotar nada",
+            "consequence": "Delegar está bien, pero sin entender nada ni dejar constancia por escrito te quedas sin control si algo no encaja.",
+            "scoreDelta": { "trust": -1, "knowledge": -1 }
+          }
+        ],
+        "redFlags": [
+          "Instalar un suelo nuevo sin comprobar el estado del soporte",
+          "Elegir el suelo solo por precio o estética, sin pensar en el uso"
+        ],
+        "legitimateWorkarounds": [
+          {
+            "title": "Comprobar el soporte antes de instalar",
+            "whenUseful": "Antes de colocar cualquier suelo nuevo.",
+            "constraints": [
+              "El soporte está nivelado y seco",
+              "El material es adecuado para el uso de la estancia"
+            ],
+            "risks": ["Instalar sobre un soporte en mal estado arruina el suelo nuevo"],
+            "rejectWhen": ["Si te meten prisa para instalar sin revisar lo que hay debajo"],
+            "professionalRequired": false
+          }
+        ],
+        "acceptanceChecks": [
+          "Se ha comprobado que el soporte está nivelado y seco antes de instalar",
+          "El material elegido es adecuado para el uso del salón",
+          "La calidad y el alcance constan por escrito"
+        ],
+        "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+        "status": "draft",
+        "expertReview": { "required": true, "status": "not_requested" }
+      },
+      "transform": {
+        "caption": "Con el soporte comprobado y el material elegido, el instalador deja el salón con su nuevo suelo, bien asentado.",
+        "agent": "professional",
+        "professionalRouting": {
+          "trade": "instalador de suelos",
+          "note": "La instalación la realiza un profesional; tú eliges, compruebas y supervisas."
+        }
+      },
+      "prerequisites": []
+    }
+  ]
+}

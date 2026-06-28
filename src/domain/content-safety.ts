@@ -125,3 +125,18 @@ export function riskBelowFloor(category: ContentCategory, riskLevel: RiskLevel):
 export function categoryRequiresSafetyNotice(category: ContentCategory): boolean {
   return MIN_RISK_BY_CATEGORY[category] !== undefined;
 }
+
+/**
+ * Whether a renovation module's visible "the room changed" transform MUST be
+ * attributed to a hired professional rather than the player (ADR-0006). True
+ * for high/critical risk OR dangerous categories — the same rule that forces a
+ * safetyNotice. This is the spatial-game counterpart of the risk floor: it
+ * stops the immersive "you renovated it" fantasy from implying the player
+ * personally executed regulated work.
+ */
+export function transformMustBeProfessional(
+  category: ContentCategory,
+  riskLevel: RiskLevel,
+): boolean {
+  return HIGH_RISK_LEVELS.has(riskLevel) || categoryRequiresSafetyNotice(category);
+}

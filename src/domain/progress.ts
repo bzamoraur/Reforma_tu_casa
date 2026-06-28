@@ -10,7 +10,7 @@ import { createInitialScore } from './scoring';
 import type { ScoreState } from './types';
 
 export const PROGRESS_STORAGE_KEY = 'reforma-quest-madrid:progress:v1';
-export const PROGRESS_VERSION = 1 as const;
+export const PROGRESS_VERSION = 2 as const;
 
 /** Minimal subset of the Web Storage API that we depend on. */
 export interface StorageLike {
@@ -31,12 +31,31 @@ export interface LevelProgress {
   completed: boolean;
 }
 
+/**
+ * Per-project (module) progress for the spatial game (ADR-0006). A project is
+ * mastered when the player picked the recommended option in its 'decide' beat
+ * (hard gate + retry); mastery is what fires the room's visible transform.
+ */
+export interface ProjectProgress {
+  projectId: string;
+  /** The player has seen the LEARN brief. */
+  learnAcknowledged: boolean;
+  /** The currently chosen decide option (last attempt). */
+  decidedChoiceId?: string;
+  /** Number of decide attempts (retries allowed until mastered). */
+  attempts: number;
+  /** True once the recommended option was chosen — gates the transform. */
+  mastered: boolean;
+}
+
 export interface GameProgress {
   version: typeof PROGRESS_VERSION;
   startedAt?: string;
   lastLevelId?: string;
   levels: Record<string, LevelProgress>;
   unlockedCardIds: string[];
+  /** Spatial game: projectId -> module progress. Rooms/house state derive from this. */
+  projects: Record<string, ProjectProgress>;
 }
 
 export function createEmptyProgress(): GameProgress {
@@ -44,7 +63,12 @@ export function createEmptyProgress(): GameProgress {
     version: PROGRESS_VERSION,
     levels: {},
     unlockedCardIds: [],
+    projects: {},
   };
+}
+
+export function createEmptyProjectProgress(projectId: string): ProjectProgress {
+  return { projectId, learnAcknowledged: false, attempts: 0, mastered: false };
 }
 
 export function createEmptyLevelProgress(levelId: string): LevelProgress {
@@ -114,7 +138,8 @@ export function loadProgress(storage: StorageLike = resolveStorage()): GameProgr
     const raw = storage.getItem(PROGRESS_STORAGE_KEY);
     if (!raw) return createEmptyProgress();
     const parsed: unknown = JSON.parse(raw);
-    if (isCurrentProgress(parsed)) return parsed;
+    // Backfill the projects map for forward-compatibility within v2.
+    if (isCurrentProgress(parsed)) return { ...parsed, projects: parsed.projects ?? {} };
     return createEmptyProgress();
   } catch {
     return createEmptyProgress();
