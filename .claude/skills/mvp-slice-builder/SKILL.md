@@ -7,6 +7,8 @@ description: Use when implementing the first playable version or adding a new le
 
 Discipline for building a playable slice without over-scoping.
 
+> **Which builder?** The current game is the spatial, room-by-room one (ADR-0006) — to add a room/renovation module, use **spatial-room-builder**. This skill is for the legacy/process **levels** (the parallel whole-flat track). The MVP discipline below (one slice, placeholders, tests before more content) applies to both.
+
 ## Procedure
 
 1. Keep scope to **one** end-to-end level first (Level 1 in the MVP).

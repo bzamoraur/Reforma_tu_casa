@@ -19,10 +19,11 @@ Use before a demo or deploy.
    - `npm audit --audit-level=high`
    - `bash scripts/check-secrets.sh`
    - `npm run test:e2e` (only if Playwright browsers are installed; otherwise note it as skipped).
-2. Confirm disclaimers are present (menu + scorecard + README + `index.html`).
+2. Confirm disclaimers are present (house + module/transform screens + README + `index.html`).
 3. Confirm no secrets and no real `.env`.
-4. Confirm **all MVP content** is at least `pending_expert_review` (or `draft`) and **nothing** is `expert_verified` without metadata.
-5. Confirm every high/critical-risk item has a `safetyNotice`.
+4. Confirm **all content** — level items AND each room module's `decide` item — is at least `draft`/`pending_expert_review` and **nothing** is `expert_verified` without metadata. A transformed room is **game state**, never `expert_verified`.
+5. Confirm every high/critical-risk item has a `safetyNotice`, and risky modules attribute their transform to a professional.
+6. **Asset provenance:** every shipped visual has an entry in `src/content/assets/assets-register.json`; any AI-generated art (Seedream/Higgsfield) has its **commercial-use + output-ownership terms confirmed** (no `license: "PENDING"` on shipped assets); `docs/CREDITS.md` is consistent. AI-art with unconfirmed terms is a release blocker (ADR-0006).
 
 ## Output
 
