@@ -15,6 +15,8 @@ import {
   type ProjectProgress,
   type StorageLike,
 } from '../../domain/progress';
+import { applyScoreDelta } from '../../domain/scoring';
+import type { ScoreState } from '../../domain/types';
 import {
   acknowledgeLearn,
   decideProject,
@@ -92,8 +94,18 @@ export class SpatialController {
       choiceId,
     );
     this.progress.projects[projectId] = result.progress;
+    // Costed retry: fold this option's delta into the running house score (once
+    // per distinct option — module-flow returns null when already counted).
+    if (result.scoreDelta) {
+      this.progress.houseScore = applyScoreDelta(this.progress.houseScore, result.scoreDelta);
+    }
     this.persist();
     return result;
+  }
+
+  /** The running, house-wide score (illustrative game state, not advice). */
+  houseScore(): ScoreState {
+    return this.progress.houseScore;
   }
 
   isMastered(projectId: string): boolean {

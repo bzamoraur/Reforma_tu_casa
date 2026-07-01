@@ -82,6 +82,7 @@ export const projectSchema = z
     learn: learnStepSchema,
     decide: contentItemSchema,
     transform: projectTransformSchema,
+    art: roomArtSchema.optional(),
     prerequisites: z.array(z.string()),
   })
   .strict();

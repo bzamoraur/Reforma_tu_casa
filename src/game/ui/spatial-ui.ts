@@ -31,9 +31,42 @@ const STATE_LABEL: Record<RoomVisualState, string> = {
   renovated: 'Reformada',
 };
 
+function artUrl(roomId: string, assetId: string): string {
+  return `/assets/rooms/${roomId}/${assetId}.webp`;
+}
+
 function roomArtUrl(room: Room, state: RoomVisualState): string {
   const assetId = state === 'renovated' ? room.art.after : room.art.before;
-  return `/assets/rooms/${room.id}/${assetId}.png`;
+  return artUrl(room.id, assetId);
+}
+
+// --- Resource gauges: an illustrative budget/time/trust HUD -----------------
+// Coarse, qualitative words derived from the running house score. NOT a price
+// engine and NOT advice — a feedback gauge (like a health bar) that makes the
+// red flags the player ignores actually cost something.
+export type GaugeTone = 'good' | 'mid' | 'bad';
+export type ResourceDim = 'budget' | 'time' | 'trust';
+
+export interface ResourceGauge {
+  dim: ResourceDim;
+  label: string;
+  word: string;
+  tone: GaugeTone;
+  fillPct: number;
+}
+
+const RESOURCE_WORDS: Record<ResourceDim, readonly [bad: string, mid: string, good: string]> = {
+  budget: ['en apuros', 'ajustado', 'holgado'],
+  time: ['con retraso', 'en plazo', 'con margen'],
+  trust: ['a ciegas', 'atento', 'controlas la obra'],
+};
+
+export function resourceGauge(dim: ResourceDim, value: number): ResourceGauge {
+  const tone: GaugeTone = value >= 2 ? 'good' : value >= 0 ? 'mid' : 'bad';
+  const word = RESOURCE_WORDS[dim][tone === 'good' ? 2 : tone === 'mid' ? 1 : 0];
+  const clamped = Math.max(-4, Math.min(4, value));
+  const fillPct = Math.round(((clamped + 4) / 8) * 100);
+  return { dim, label: DIMENSION_LABELS[dim], word, tone, fillPct };
 }
 
 export class SpatialUIController {
@@ -112,6 +145,7 @@ export class SpatialUIController {
             : `Tu piso: ${summary.renovatedRooms}/${summary.totalRooms} estancias reformadas`,
           dataset: { testid: 'house-meter' },
         }),
+        this.renderResourceBars(),
         grid,
         anyProgress
           ? el('button', {
@@ -127,6 +161,39 @@ export class SpatialUIController {
         el('p', { class: 'disclaimer', text: DISCLAIMER }),
       ],
       { testid: 'house' },
+    );
+  }
+
+  /** The illustrative budget/time/trust HUD, derived from the house score. */
+  private renderResourceBars(): HTMLElement {
+    const score = this.controller.houseScore();
+    const bars = el('div', { class: 'resource-bars', dataset: { testid: 'resource-bars' } });
+    for (const dim of ['budget', 'time', 'trust'] as const) {
+      const g = resourceGauge(dim, score[dim]);
+      const fill = el('div', { class: 'resource-fill' });
+      fill.style.width = `${g.fillPct}%`;
+      bars.append(
+        el(
+          'div',
+          {
+            class: `resource resource-${g.tone}`,
+            dataset: { testid: `resource-${dim}` },
+            ariaLabel: `${g.label}: ${g.word}`,
+          },
+          el('span', { class: 'resource-label', text: g.label }),
+          el('div', { class: 'resource-track' }, fill),
+          el('span', { class: 'resource-word', text: g.word }),
+        ),
+      );
+    }
+    return el(
+      'div',
+      { class: 'resource-hud' },
+      bars,
+      el('p', {
+        class: 'muted resource-note',
+        text: 'Estado orientativo de tu reforma según tus decisiones (no son precios reales).',
+      }),
     );
   }
 
@@ -151,20 +218,31 @@ export class SpatialUIController {
     );
     for (const hs of room.hotspots) {
       const mastered = this.controller.isMastered(hs.projectId);
+      const locked = !mastered && !this.controller.isProjectAvailable(hs.projectId);
+      const lockHint = locked ? this.prerequisiteHint(hs.projectId) : '';
       const dot = el('button', {
-        class: mastered ? 'hotspot hotspot-done' : 'hotspot',
-        text: mastered ? '✓' : '?',
-        title: hs.label,
-        ariaLabel: `${hs.label}: ${hs.discoverHint}`,
-        dataset: { testid: 'hotspot', projectId: hs.projectId },
-        onClick: () => {
-          if (this.controller.isMastered(hs.projectId)) {
-            this.go({ kind: 'module', projectId: hs.projectId, step: 'transform' });
-          } else {
-            this.controller.enterModule(hs.projectId);
-            this.go({ kind: 'module', projectId: hs.projectId, step: 'learn' });
-          }
+        class: mastered ? 'hotspot hotspot-done' : locked ? 'hotspot hotspot-locked' : 'hotspot',
+        text: mastered ? '✓' : locked ? '🔒' : '?',
+        disabled: locked,
+        title: locked ? lockHint : hs.label,
+        ariaLabel: locked
+          ? `${hs.label} (bloqueado): ${lockHint}`
+          : `${hs.label}: ${hs.discoverHint}`,
+        dataset: {
+          testid: 'hotspot',
+          projectId: hs.projectId,
+          locked: locked ? 'true' : 'false',
         },
+        onClick: locked
+          ? undefined
+          : () => {
+              if (this.controller.isMastered(hs.projectId)) {
+                this.go({ kind: 'module', projectId: hs.projectId, step: 'transform' });
+              } else {
+                this.controller.enterModule(hs.projectId);
+                this.go({ kind: 'module', projectId: hs.projectId, step: 'learn' });
+              }
+            },
       });
       // Position the hotspot over the room art (x/y are 0..1 fractions).
       dot.style.left = `${hs.x * 100}%`;
@@ -324,15 +402,20 @@ export class SpatialUIController {
   private renderTransform(projectId: string): HTMLElement {
     const project = this.controller.getProject(projectId);
     const room = this.controller.getRoom(project.roomId);
-    const state = this.controller.roomState(room.id);
 
-    const stage = el('div', { class: 'room-stage', dataset: { testid: 'room-stage', state } });
+    // The transform screen shows THIS project's finished result. A room can host
+    // several modules, so prefer the project's own art and fall back to the room.
+    const doneArt = project.art ?? room.art;
+    const stage = el('div', {
+      class: 'room-stage',
+      dataset: { testid: 'room-stage', state: 'renovated' },
+    });
     stage.append(
       el('img', {
         class: 'room-art',
-        src: roomArtUrl(room, state),
-        alt: `${room.name} (${STATE_LABEL[state]})`,
-        dataset: { testid: 'room-art', state },
+        src: artUrl(room.id, doneArt.after),
+        alt: `${room.name} — ${project.title} (hecho)`,
+        dataset: { testid: 'room-art', state: 'renovated' },
         onError: (ev) => {
           (ev.target as HTMLImageElement).style.display = 'none';
           stage.classList.add('art-missing');
@@ -390,6 +473,15 @@ export class SpatialUIController {
       el('h2', { class: 'scenario-title', text: project.title }),
       el('p', { class: 'muted', text: project.opportunity }),
     );
+  }
+
+  /** Player-facing hint for a locked hotspot: which prerequisites remain. */
+  private prerequisiteHint(projectId: string): string {
+    const project = this.controller.getProject(projectId);
+    const pending = project.prerequisites
+      .filter((id) => !this.controller.isMastered(id))
+      .map((id) => this.controller.getProject(id).title);
+    return pending.length > 0 ? `Primero termina: ${pending.join(', ')}` : 'Aún no disponible';
   }
 
   private scoreChips(delta: ScoreDelta): HTMLElement | null {

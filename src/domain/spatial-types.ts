@@ -81,6 +81,12 @@ export interface Project {
   /** The mastery check. Reused ContentItem: scoring/redflags/safety/sources. */
   decide: ContentItem;
   transform: ProjectTransform;
+  /**
+   * Per-project before/after art, used by the transform screen. Lets one room
+   * host several modules that each show their own change (e.g. Salón floor vs.
+   * lighting). Falls back to the room's art when omitted.
+   */
+  art?: RoomArt;
   prerequisites: string[];
 }
 

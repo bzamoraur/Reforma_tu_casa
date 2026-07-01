@@ -10,7 +10,30 @@ describe('Salón flooring module — golden', () => {
   it('the house exposes its rooms (ordered) and projects', () => {
     const house = getHouse();
     expect(house.rooms.map((r) => r.id)).toEqual(['salon', 'dormitorio']);
-    expect(house.projects.map((p) => p.id).sort()).toEqual(['dormitorio-paint', 'salon-flooring']);
+    expect(house.projects.map((p) => p.id).sort()).toEqual([
+      'dormitorio-paint',
+      'salon-flooring',
+      'salon-lighting',
+    ]);
+  });
+
+  it('the high-risk lighting module keeps its safety shape (critical + pro + notice)', () => {
+    const p = getProject('salon-lighting')!;
+    expect(p.prerequisites).toEqual(['salon-flooring']);
+    expect(p.transform.agent).toBe('professional');
+    expect({
+      playerRole: p.playerRole,
+      category: p.decide.category,
+      riskLevel: p.decide.riskLevel,
+      status: p.decide.status,
+      transformAgent: p.transform.agent,
+      trade: p.transform.professionalRouting?.trade,
+      hasSafetyNotice:
+        typeof p.decide.safetyNotice === 'string' && p.decide.safetyNotice.length > 0,
+      recommended: p.decide.playerChoices.find((c) => c.recommended)?.id,
+      redFlags: p.decide.redFlags,
+      acceptanceChecks: p.decide.acceptanceChecks,
+    }).toMatchSnapshot();
   });
 
   it('module shape (role, risk, transform attribution, flags, checks)', () => {
@@ -38,8 +61,8 @@ describe('Salón flooring module — golden', () => {
     expect(best).toMatchSnapshot();
   });
 
-  it('the hotspot points at the project', () => {
+  it('each hotspot points at its project', () => {
     const room = getRoom('salon')!;
-    expect(room.hotspots[0].projectId).toBe('salon-flooring');
+    expect(room.hotspots.map((h) => h.projectId)).toEqual(['salon-flooring', 'salon-lighting']);
   });
 });

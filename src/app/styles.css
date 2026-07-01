@@ -513,6 +513,14 @@ body {
   border-color: rgba(255, 255, 255, 0.85);
   animation: none;
 }
+.hotspot-locked {
+  background: #6b7280;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  cursor: not-allowed;
+  animation: none;
+  opacity: 0.85;
+}
 @keyframes hotspot-pulse {
   0%,
   100% {
@@ -521,6 +529,64 @@ body {
   50% {
     box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
   }
+}
+
+/* Resource HUD — illustrative budget/time/trust gauges (not a price engine) */
+.resource-hud {
+  margin: 12px 0 6px;
+}
+.resource-bars {
+  display: grid;
+  gap: 8px;
+}
+.resource {
+  display: grid;
+  grid-template-columns: 104px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+.resource-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.resource-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.resource-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 240ms ease;
+}
+.resource-word {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.resource-good .resource-fill {
+  background: var(--good, #22c55e);
+}
+.resource-good .resource-word {
+  color: var(--good, #22c55e);
+}
+.resource-mid .resource-fill {
+  background: #f59e0b;
+}
+.resource-mid .resource-word {
+  color: #f59e0b;
+}
+.resource-bad .resource-fill {
+  background: #ef4444;
+}
+.resource-bad .resource-word {
+  color: #ef4444;
+}
+.resource-note {
+  font-size: 11px;
+  margin-top: 6px;
 }
 
 .module-head {

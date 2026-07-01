@@ -11,7 +11,7 @@
 import { findChoice } from './scoring';
 import { createEmptyProjectProgress, type ProjectProgress } from './progress';
 import type { HousePack, Project, Room, RoomVisualState } from './spatial-types';
-import type { PlayerChoice } from './types';
+import type { PlayerChoice, ScoreDelta } from './types';
 
 export function getProjectProgress(
   projects: Record<string, ProjectProgress>,
@@ -30,12 +30,22 @@ export interface DecideResult {
   /** True when the chosen option is the recommended one (mastery). */
   passed: boolean;
   choice: PlayerChoice;
+  /**
+   * The choice's scoreDelta to apply to the house score, or null when this
+   * option was already scored on a previous attempt (so retries don't double
+   * count). The caller (SpatialController) owns the house-wide ScoreState.
+   */
+  scoreDelta: ScoreDelta | null;
 }
 
 /**
  * Apply a decide-beat choice. Hard gate: mastery requires the recommended
  * option. Records the attempt and allows retry until mastered. Once mastered,
  * mastery is sticky (a later re-choice cannot un-master a learned module).
+ *
+ * Scoring is costed but bounded: each distinct option the player tries applies
+ * its scoreDelta exactly once (tracked in scoredChoiceIds), so a wrong pick
+ * leaves a real mark on the house score, while re-picking can't farm or tank it.
  */
 export function decideProject(
   project: Project,
@@ -45,13 +55,15 @@ export function decideProject(
   const choice = findChoice(project.decide, choiceId);
   if (!choice) throw new Error(`Unknown choice ${choiceId} for project ${project.id}`);
   const passed = choice.recommended === true;
+  const alreadyScored = pp.scoredChoiceIds.includes(choiceId);
   const progress: ProjectProgress = {
     ...pp,
     decidedChoiceId: choiceId,
     attempts: pp.attempts + 1,
     mastered: pp.mastered || passed,
+    scoredChoiceIds: alreadyScored ? pp.scoredChoiceIds : [...pp.scoredChoiceIds, choiceId],
   };
-  return { progress, passed, choice };
+  return { progress, passed, choice, scoreDelta: alreadyScored ? null : choice.scoreDelta };
 }
 
 export function isProjectMastered(pp: ProjectProgress): boolean {
