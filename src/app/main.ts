@@ -1,35 +1,26 @@
-import Phaser from 'phaser';
 import './styles.css';
-import { ApartmentScene, apartmentSceneDesign } from '../game/scenes/apartment-scene';
-import { BootScene } from '../game/scenes/boot-scene';
-import { GameController } from '../game/systems/game-controller';
-import { UIController } from '../game/ui/ui-controller';
+import { SpatialController } from '../game/systems/spatial-controller';
+import { SpatialUIController } from '../game/ui/spatial-ui';
 
 function bootstrap(): void {
-  const gameRoot = document.getElementById('game-root');
   const uiRoot = document.getElementById('ui-root');
-  if (!gameRoot || !uiRoot) {
-    throw new Error('Missing #game-root or #ui-root mount points');
+  const gameRoot = document.getElementById('game-root');
+  if (!uiRoot) {
+    throw new Error('Missing #ui-root mount point');
   }
 
-  // Phaser renders the apartment backdrop only; the interactive loop lives in
-  // the HTML overlay (UIController) so it is accessible and e2e-testable.
-  new Phaser.Game({
-    type: Phaser.AUTO,
-    parent: gameRoot,
-    backgroundColor: '#0e1726',
-    scale: {
-      mode: Phaser.Scale.FIT,
-      autoCenter: Phaser.Scale.CENTER_BOTH,
-      width: apartmentSceneDesign.width,
-      height: apartmentSceneDesign.height,
-    },
-    scene: [BootScene, ApartmentScene],
-  });
+  // The room-by-room game (ADR-0006) is an accessible HTML/CSS overlay so it is
+  // e2e-testable; the room art is illustrated layers swapped on transform.
+  const controller = new SpatialController();
+  new SpatialUIController(uiRoot, controller).start();
 
-  const controller = new GameController();
-  const ui = new UIController(uiRoot, controller);
-  ui.start();
+  // Phaser is loaded lazily as a decorative backdrop only (ADR-0006:
+  // dynamic-import so it never blocks first paint). Any failure is non-fatal.
+  if (gameRoot) {
+    void import('../game/scenes/ambient')
+      .then(({ startAmbient }) => startAmbient(gameRoot))
+      .catch(() => {});
+  }
 }
 
 if (document.readyState === 'loading') {

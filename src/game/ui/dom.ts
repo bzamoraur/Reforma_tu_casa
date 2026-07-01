@@ -9,8 +9,11 @@ export interface ElAttrs {
   disabled?: boolean;
   title?: string;
   ariaLabel?: string;
+  src?: string;
+  alt?: string;
   dataset?: Record<string, string>;
   onClick?: (ev: MouseEvent) => void;
+  onError?: (ev: Event) => void;
 }
 
 export function el<K extends keyof HTMLElementTagNameMap>(
@@ -27,12 +30,15 @@ export function el<K extends keyof HTMLElementTagNameMap>(
   }
   if (attrs.title) node.title = attrs.title;
   if (attrs.ariaLabel) node.setAttribute('aria-label', attrs.ariaLabel);
+  if (attrs.src && 'src' in node) (node as HTMLImageElement).src = attrs.src;
+  if (attrs.alt && 'alt' in node) (node as HTMLImageElement).alt = attrs.alt;
   if (attrs.dataset) {
     for (const [key, value] of Object.entries(attrs.dataset)) {
       node.dataset[key] = value;
     }
   }
   if (attrs.onClick) node.addEventListener('click', attrs.onClick as EventListener);
+  if (attrs.onError) node.addEventListener('error', attrs.onError as EventListener);
   for (const child of children) {
     if (child === null || child === undefined || child === false) continue;
     node.append(typeof child === 'string' ? document.createTextNode(child) : child);

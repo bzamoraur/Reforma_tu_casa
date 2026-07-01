@@ -1,0 +1,55 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Salón flooring module — golden > module shape (role, risk, transform attribution, flags, checks) 1`] = `
+{
+  "acceptanceChecks": [
+    "Se ha comprobado que el soporte está nivelado y seco antes de instalar",
+    "El material elegido es adecuado para el uso del salón",
+    "La calidad y el alcance constan por escrito",
+  ],
+  "category": "flooring",
+  "playerRole": "choose_design",
+  "recommended": "choose-and-supervise",
+  "redFlags": [
+    "Instalar un suelo nuevo sin comprobar el estado del soporte",
+    "Elegir el suelo solo por precio o estética, sin pensar en el uso",
+  ],
+  "riskLevel": "low",
+  "status": "draft",
+  "trade": "instalador de suelos",
+  "transformAgent": "professional",
+}
+`;
+
+exports[`Salón flooring module — golden > the high-risk lighting module keeps its safety shape (critical + pro + notice) 1`] = `
+{
+  "acceptanceChecks": [
+    "El trabajo eléctrico lo ha realizado un electricista autorizado",
+    "Tienes el certificado (boletín) del trabajo realizado",
+    "Los puntos de luz e interruptores están donde de verdad los usas",
+  ],
+  "category": "electricity_awareness",
+  "hasSafetyNotice": true,
+  "playerRole": "decide",
+  "recommended": "plan-and-hire",
+  "redFlags": [
+    "Encargar trabajo eléctrico a alguien sin cualificación ni certificado",
+    "Ejecutar por tu cuenta una instalación eléctrica que exige un profesional autorizado",
+  ],
+  "riskLevel": "critical",
+  "status": "draft",
+  "trade": "electricista autorizado",
+  "transformAgent": "professional",
+}
+`;
+
+exports[`Salón flooring module — golden > the recommended pick is the best achievable score for the module 1`] = `
+{
+  "budget": 1,
+  "knowledge": 2,
+  "quality": 2,
+  "safety": 0,
+  "time": 0,
+  "trust": 1,
+}
+`;

@@ -1,0 +1,93 @@
+{
+  "_comment": "Provenance + licensing for every visual/audio asset, mirroring source-register.json. No asset ships without an entry here and a confirmed commercial-use license. AI-generated art is auxiliary and must record its model, prompt reference, and a human confirmation of ownership/commercial terms.",
+  "assets": [
+    {
+      "id": "salon-floor-before",
+      "type": "ai-image",
+      "status": "in_game_pending_license",
+      "source": "Seedream 4.0 (self-served on website)",
+      "license": "PENDING — confirm ByteDance/Seedream commercial-use + output-ownership terms before ship",
+      "promptRef": "docs/art/room-art-prompts.md#salon-floor",
+      "usage": "Salón room — flooring module, before state (room texture, shipped as WebP)",
+      "dateGenerated": "2026-06-30",
+      "optimized": "downscaled 4096px → 1280px, WebP q90 (scripts/optimize-art.sh)",
+      "limitations": "Auxiliary AI art. Not a source of truth. Ships in-game but licence is still PENDING — a release blocker until confirmed."
+    },
+    {
+      "id": "salon-floor-after",
+      "type": "ai-image",
+      "status": "in_game_pending_license",
+      "source": "Seedream 4.0 (in-context edit of salon-floor-before)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/room-art-prompts.md#salon-floor",
+      "usage": "Salón room — flooring module, after state (room texture, shipped as WebP)",
+      "dateGenerated": "2026-06-30",
+      "optimized": "downscaled 4096px → 1280px, WebP q90 (scripts/optimize-art.sh)",
+      "limitations": "Pixel-aligned edit of salon-floor-before (only the floor changes). Licence PENDING — release blocker."
+    },
+    {
+      "id": "salon-light-before",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (in-context edit of salon-floor-after — cumulative)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/room-art-prompts.md#salon-light",
+      "usage": "Salón room — lighting module, before state (new floor already laid, poor lighting)",
+      "dateGenerated": "PENDING",
+      "limitations": "Must be an edit of salon-floor-after so the new floor persists (cumulative room state). Only the lighting differs."
+    },
+    {
+      "id": "salon-light-after",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (in-context edit of salon-light-before)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/room-art-prompts.md#salon-light",
+      "usage": "Salón room — lighting module, after state; also the room's fully-renovated tile art",
+      "dateGenerated": "PENDING",
+      "limitations": "Pixel-aligned edit of salon-light-before (only the lighting changes). Show only the finished result — never wiring, tools, or how-to."
+    },
+    {
+      "id": "dormitorio-paint-before",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (self-served on website)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/room-art-prompts.md#dormitorio-paint",
+      "usage": "Dormitorio room — paint module, before state",
+      "dateGenerated": "PENDING",
+      "limitations": "Reuse the locked style bible for cross-room consistency; bedroom with tired/dull walls."
+    },
+    {
+      "id": "dormitorio-paint-after",
+      "type": "ai-image",
+      "status": "pending",
+      "source": "Seedream 4.0 (in-context edit of dormitorio-paint-before)",
+      "license": "PENDING — same as above",
+      "promptRef": "docs/art/room-art-prompts.md#dormitorio-paint",
+      "usage": "Dormitorio room — paint module, after state",
+      "dateGenerated": "PENDING",
+      "limitations": "Pixel-aligned edit of dormitorio-paint-before (only the wall colour/freshness changes)."
+    }
+  ],
+  "approvedFreeSources": [
+    {
+      "name": "Kenney",
+      "url": "https://kenney.nl/assets",
+      "license": "CC0 (public domain, commercial OK, no attribution required)",
+      "use": "furniture/fixture sprites"
+    },
+    {
+      "name": "game-icons.net",
+      "url": "https://game-icons.net",
+      "license": "CC BY 3.0 (attribution required)",
+      "use": "UI icons, hotspot pins, badges"
+    },
+    {
+      "name": "OpenGameArt / itch.io (CC0 only)",
+      "url": "https://opengameart.org",
+      "license": "CC0 (verify each asset individually)",
+      "use": "isometric tiles, gap-fill"
+    }
+  ]
+}

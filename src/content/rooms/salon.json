@@ -1,0 +1,209 @@
+{
+  "house": { "id": "mi-piso", "name": "Mi piso" },
+  "rooms": [
+    {
+      "id": "salon",
+      "name": "Salón",
+      "order": 1,
+      "intro": "Tu nuevo salón. La luz entra bien de día, pero el suelo ha visto mejores días y, al caer la tarde, las esquinas se quedan a oscuras. Echa un vistazo y decide por dónde empezar.",
+      "art": { "before": "salon-floor-before", "after": "salon-light-after" },
+      "hotspots": [
+        {
+          "id": "hs-salon-floor",
+          "label": "Mira el suelo",
+          "discoverHint": "El parqué está gastado y desigual: se puede renovar.",
+          "projectId": "salon-flooring",
+          "x": 0.5,
+          "y": 0.72
+        },
+        {
+          "id": "hs-salon-light",
+          "label": "Mira la luz",
+          "discoverHint": "Solo hay una bombilla y las esquinas quedan a oscuras: se puede planificar una luz mejor.",
+          "projectId": "salon-lighting",
+          "x": 0.5,
+          "y": 0.24
+        }
+      ],
+      "projectIds": ["salon-flooring", "salon-lighting"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "salon-flooring",
+      "roomId": "salon",
+      "title": "Renovar el suelo del salón",
+      "opportunity": "El parqué del salón está gastado y desigual. Es momento de renovar el suelo... pero bien hecho.",
+      "playerRole": "choose_design",
+      "learn": {
+        "title": "Antes de cambiar el suelo",
+        "body": "Un suelo nuevo dura lo que dura su base. Antes de instalar, comprueba que el soporte está nivelado y seco, elige el material según el uso de la estancia (un salón es zona de paso) y deja la calidad y el alcance por escrito. Tu papel es decidir bien y supervisar; la instalación la hace el profesional.",
+        "sourceIds": ["src-general-contracting-practice"]
+      },
+      "decide": {
+        "id": "salon-flooring-decide",
+        "levelId": "salon",
+        "title": "El suelo del salón, gastado",
+        "category": "flooring",
+        "riskLevel": "low",
+        "learningObjective": "Saber que un suelo nuevo empieza por el soporte: comprobar que está nivelado y seco, elegir el material según el uso y dejar el alcance por escrito.",
+        "scenarioText": "El suelo del salón está gastado y desigual. Quieres renovarlo. El instalador te ofrece varias opciones y mete prisa para empezar mañana mismo.",
+        "playerChoices": [
+          {
+            "id": "cheapest-over",
+            "label": "Poner el suelo más barato directamente encima, sin mirar qué hay debajo",
+            "consequence": "Si el soporte está desnivelado o húmedo, el suelo nuevo se mueve, se abomba o cruje al poco tiempo. Lo barato, mal puesto, sale caro.",
+            "scoreDelta": { "budget": -2, "quality": -2 },
+            "redFlag": "Instalar un suelo nuevo sin comprobar el estado del soporte"
+          },
+          {
+            "id": "choose-and-supervise",
+            "label": "Elegir el material según el uso, comprobar que el soporte está nivelado y seco, y dejarlo por escrito",
+            "consequence": "Compruebas el soporte, eliges un material adecuado para una zona de paso y dejas calidad y alcance por escrito. El instalador trabaja sobre una base sana y sabes qué compras.",
+            "scoreDelta": { "quality": 2, "knowledge": 2, "budget": 1, "trust": 1 },
+            "lesson": "Un buen suelo empieza por lo que hay debajo.",
+            "betterQuestion": "¿Está el soporte nivelado y seco, y es el material adecuado para el uso de la estancia?",
+            "recommended": true
+          },
+          {
+            "id": "fanciest",
+            "label": "Elegir el material más caro y bonito, sin pensar en el uso",
+            "consequence": "Lo bonito no siempre aguanta el trajín diario de un salón. Pagas de más por algo que quizá se estropee antes de tiempo.",
+            "scoreDelta": { "budget": -2, "quality": -1 }
+          },
+          {
+            "id": "trust-installer-blindly",
+            "label": "Dejar que el instalador lo decida todo por ti, sin preguntar ni anotar nada",
+            "consequence": "Delegar está bien, pero sin entender nada ni dejar constancia por escrito te quedas sin control si algo no encaja.",
+            "scoreDelta": { "trust": -1, "knowledge": -1 }
+          }
+        ],
+        "redFlags": [
+          "Instalar un suelo nuevo sin comprobar el estado del soporte",
+          "Elegir el suelo solo por precio o estética, sin pensar en el uso"
+        ],
+        "legitimateWorkarounds": [
+          {
+            "title": "Comprobar el soporte antes de instalar",
+            "whenUseful": "Antes de colocar cualquier suelo nuevo.",
+            "constraints": [
+              "El soporte está nivelado y seco",
+              "El material es adecuado para el uso de la estancia"
+            ],
+            "risks": ["Instalar sobre un soporte en mal estado arruina el suelo nuevo"],
+            "rejectWhen": ["Si te meten prisa para instalar sin revisar lo que hay debajo"],
+            "professionalRequired": false
+          }
+        ],
+        "acceptanceChecks": [
+          "Se ha comprobado que el soporte está nivelado y seco antes de instalar",
+          "El material elegido es adecuado para el uso del salón",
+          "La calidad y el alcance constan por escrito"
+        ],
+        "sourceIds": ["src-general-contracting-practice", "src-documentation-practice"],
+        "status": "draft",
+        "expertReview": { "required": true, "status": "not_requested" }
+      },
+      "transform": {
+        "caption": "Con el soporte comprobado y el material elegido, el instalador deja el salón con su nuevo suelo, bien asentado.",
+        "agent": "professional",
+        "professionalRouting": {
+          "trade": "instalador de suelos",
+          "note": "La instalación la realiza un profesional; tú eliges, compruebas y supervisas."
+        }
+      },
+      "art": { "before": "salon-floor-before", "after": "salon-floor-after" },
+      "prerequisites": []
+    },
+    {
+      "id": "salon-lighting",
+      "roomId": "salon",
+      "title": "Planificar la luz del salón",
+      "opportunity": "El salón tiene una sola bombilla y las esquinas se quedan a oscuras. Puedes planificar una luz mucho mejor... y encargar la parte eléctrica a un profesional.",
+      "playerRole": "decide",
+      "learn": {
+        "title": "La luz: tú la decides, el profesional la ejecuta",
+        "body": "En una reforma, la luz tiene dos partes. Una es de diseño y decisión —cuántos puntos de luz quieres, dónde, qué interruptores y qué ambiente— y esa parte es tuya. La otra es la parte eléctrica, que en España es trabajo regulado: la realiza un electricista autorizado y termina con un certificado (el boletín) que acredita que todo cumple la normativa. Tu trabajo es planificar bien la luz y exigir ese certificado; la parte eléctrica nunca la haces por tu cuenta.",
+        "sourceIds": ["src-general-contracting-practice"]
+      },
+      "decide": {
+        "id": "salon-lighting-decide",
+        "levelId": "salon",
+        "title": "La luz del salón, pobre",
+        "category": "electricity_awareness",
+        "riskLevel": "critical",
+        "learningObjective": "Entender que la luz se planifica, pero la parte eléctrica siempre la ejecuta un electricista autorizado que emite el certificado (boletín).",
+        "scenarioText": "Ya tienes el suelo nuevo. Ahora quieres más y mejor luz en el salón. Un conocido te dice que él te 'pone los puntos de luz' por cuatro duros y sin papeles, y que así te ahorras el electricista.",
+        "playerChoices": [
+          {
+            "id": "diy-self",
+            "label": "Hacerlo tú mismo mirando vídeos, para no pagar a nadie",
+            "consequence": "La parte eléctrica es trabajo regulado y peligroso: hacerla por tu cuenta pone en riesgo tu seguridad y deja la vivienda sin certificar. No es un ahorro, es un peligro.",
+            "scoreDelta": { "safety": -3, "quality": -1, "trust": -1 },
+            "redFlag": "Ejecutar por tu cuenta una instalación que exige un profesional autorizado"
+          },
+          {
+            "id": "cheap-uncertified",
+            "label": "Aceptar al conocido que lo hace baratísimo y sin papeles, para ahorrar",
+            "consequence": "Sin un profesional autorizado no hay certificado ni garantía: si más adelante hay un fallo, el seguro puede no cubrirlo y tendrás que rehacerlo. Lo barato sin papeles sale caro.",
+            "scoreDelta": { "safety": -3, "budget": -1, "trust": -1 },
+            "redFlag": "Encargar trabajo eléctrico a alguien sin cualificación ni certificado"
+          },
+          {
+            "id": "plan-and-hire",
+            "label": "Decidir dónde quieres cada punto de luz e interruptor y contratar a un electricista autorizado que ejecute el trabajo y te entregue el certificado (boletín)",
+            "consequence": "Planificas la luz según cómo usas el salón y un profesional autorizado hace el trabajo conforme a normativa y te deja el certificado. Buena luz y todo en regla.",
+            "scoreDelta": { "safety": 2, "quality": 2, "knowledge": 2, "trust": 1 },
+            "lesson": "La luz se planifica; la parte eléctrica siempre la ejecuta un profesional autorizado.",
+            "betterQuestion": "¿Dónde necesito luz de verdad, y quién me firma el certificado del trabajo?",
+            "recommended": true
+          },
+          {
+            "id": "just-lamps",
+            "label": "No tocar nada y llenar el salón de lámparas de pie por todas partes",
+            "consequence": "Es seguro, pero improvisado: cables por el suelo, regletas saturadas y una luz irregular. Tapa el hoy, no resuelve la reforma.",
+            "scoreDelta": { "quality": -1, "budget": -1 }
+          }
+        ],
+        "redFlags": [
+          "Encargar trabajo eléctrico a alguien sin cualificación ni certificado",
+          "Ejecutar por tu cuenta una instalación eléctrica que exige un profesional autorizado"
+        ],
+        "legitimateWorkarounds": [
+          {
+            "title": "Planificar la luz antes de llamar al electricista",
+            "whenUseful": "Antes de encargar el trabajo, para pedir presupuestos comparables y no olvidar ningún punto de luz.",
+            "constraints": [
+              "El trabajo eléctrico lo ejecuta un electricista autorizado",
+              "Se entrega el certificado (boletín) del trabajo realizado"
+            ],
+            "risks": [
+              "Encargar puntos de luz sin un plan lleva a interruptores mal situados y sobrecostes"
+            ],
+            "rejectWhen": ["Si alguien te ofrece hacer la parte eléctrica sin certificado"],
+            "professionalRequired": true
+          }
+        ],
+        "acceptanceChecks": [
+          "El trabajo eléctrico lo ha realizado un electricista autorizado",
+          "Tienes el certificado (boletín) del trabajo realizado",
+          "Los puntos de luz e interruptores están donde de verdad los usas"
+        ],
+        "safetyNotice": "La parte eléctrica es trabajo regulado en España: la ejecuta un electricista autorizado, que emite el certificado (boletín). Tu papel es decidir el plan de luz y exigir ese certificado; la parte eléctrica nunca la haces por tu cuenta.",
+        "sourceIds": ["src-general-contracting-practice"],
+        "status": "draft",
+        "expertReview": { "required": true, "status": "not_requested" }
+      },
+      "transform": {
+        "caption": "Con tu plan de luz, un electricista autorizado deja el salón con sus nuevos puntos de luz, la casa iluminada y el certificado en regla.",
+        "agent": "professional",
+        "professionalRouting": {
+          "trade": "electricista autorizado",
+          "note": "La parte eléctrica la realiza un profesional autorizado que emite el certificado (boletín); tú decides el plan de luz y lo supervisas."
+        }
+      },
+      "art": { "before": "salon-floor-after", "after": "salon-light-after" },
+      "prerequisites": ["salon-flooring"]
+    }
+  ]
+}

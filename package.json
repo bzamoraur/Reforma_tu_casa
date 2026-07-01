@@ -22,6 +22,7 @@
     "test:golden": "vitest run src/tests/golden",
     "test:e2e": "playwright test",
     "content:lint": "tsx scripts/content-lint.ts",
+    "art:optimize": "bash scripts/optimize-art.sh",
     "audit:high": "npm audit --audit-level=high"
   },
   "dependencies": {

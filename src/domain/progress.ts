@@ -10,7 +10,7 @@ import { createInitialScore } from './scoring';
 import type { ScoreState } from './types';
 
 export const PROGRESS_STORAGE_KEY = 'reforma-quest-madrid:progress:v1';
-export const PROGRESS_VERSION = 1 as const;
+export const PROGRESS_VERSION = 3 as const;
 
 /** Minimal subset of the Web Storage API that we depend on. */
 export interface StorageLike {
@@ -31,12 +31,43 @@ export interface LevelProgress {
   completed: boolean;
 }
 
+/**
+ * Per-project (module) progress for the spatial game (ADR-0006). A project is
+ * mastered when the player picked the recommended option in its 'decide' beat
+ * (hard gate + retry); mastery is what fires the room's visible transform.
+ */
+export interface ProjectProgress {
+  projectId: string;
+  /** The player has seen the LEARN brief. */
+  learnAcknowledged: boolean;
+  /** The currently chosen decide option (last attempt). */
+  decidedChoiceId?: string;
+  /** Number of decide attempts (retries allowed until mastered). */
+  attempts: number;
+  /** True once the recommended option was chosen — gates the transform. */
+  mastered: boolean;
+  /**
+   * Choice ids whose scoreDelta has already been applied to the house score.
+   * Each distinct option a player tries counts ONCE, so a wrong pick leaves a
+   * mark (costed retry) but re-picking the same option can't farm/tank the score.
+   */
+  scoredChoiceIds: string[];
+}
+
 export interface GameProgress {
   version: typeof PROGRESS_VERSION;
   startedAt?: string;
   lastLevelId?: string;
   levels: Record<string, LevelProgress>;
   unlockedCardIds: string[];
+  /** Spatial game: projectId -> module progress. Rooms/house state derive from this. */
+  projects: Record<string, ProjectProgress>;
+  /**
+   * Spatial game: the running, house-wide score across every decision the
+   * player has made. Illustrative game state (budget/time/trust gauges), never
+   * a price engine or advice. Accumulated from decided choices' scoreDeltas.
+   */
+  houseScore: ScoreState;
 }
 
 export function createEmptyProgress(): GameProgress {
@@ -44,6 +75,18 @@ export function createEmptyProgress(): GameProgress {
     version: PROGRESS_VERSION,
     levels: {},
     unlockedCardIds: [],
+    projects: {},
+    houseScore: createInitialScore(),
+  };
+}
+
+export function createEmptyProjectProgress(projectId: string): ProjectProgress {
+  return {
+    projectId,
+    learnAcknowledged: false,
+    attempts: 0,
+    mastered: false,
+    scoredChoiceIds: [],
   };
 }
 
@@ -114,7 +157,14 @@ export function loadProgress(storage: StorageLike = resolveStorage()): GameProgr
     const raw = storage.getItem(PROGRESS_STORAGE_KEY);
     if (!raw) return createEmptyProgress();
     const parsed: unknown = JSON.parse(raw);
-    if (isCurrentProgress(parsed)) return parsed;
+    // Backfill newer fields for forward-compatibility within the current version.
+    if (isCurrentProgress(parsed)) {
+      const projects: Record<string, ProjectProgress> = {};
+      for (const [id, pp] of Object.entries(parsed.projects ?? {})) {
+        projects[id] = { ...pp, scoredChoiceIds: pp.scoredChoiceIds ?? [] };
+      }
+      return { ...parsed, projects, houseScore: parsed.houseScore ?? createInitialScore() };
+    }
     return createEmptyProgress();
   } catch {
     return createEmptyProgress();
